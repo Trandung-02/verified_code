@@ -5,7 +5,8 @@ import { Eye, EyeOff } from 'lucide-react'
 
 interface PasswordInputProps extends React.InputHTMLAttributes<HTMLInputElement> { }
 
-const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(({ className, ...props }, ref) => {
+const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
+    ({ className, autoComplete = 'current-password', ...props }, ref) => {
         const [show, setShow] = useState(false)
 
         return (
@@ -15,8 +16,9 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(({ classN
                     ref={ref}
                     className={'w-full outline-[0] h-full hide-password-toggle'}
                     {...props}
-                    autoComplete='new-password'
-                    autoSave='off'
+                    autoComplete={autoComplete}
+                    autoCapitalize="off"
+                    spellCheck={false}
                 />
                 <button
                     type="button"

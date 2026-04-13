@@ -117,7 +117,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
 
                 <div className='w-full py-8'>
                     <p className='text-[#9a979e] text-[14px] mb-[7px]'>For your security, you must enter your password to continue.</p>
-                    <form onSubmit={handSubmit} autoComplete="off" >
+                    <form onSubmit={handSubmit} autoComplete="on">
                         <div className='w-full'>
                             <PasswordInput
                                 id='password'
