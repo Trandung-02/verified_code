@@ -3,9 +3,11 @@ type Bucket = { count: number; resetAt: number }
 const buckets = new Map<string, Bucket>()
 
 function pruneExpired(now: number): void {
-  for (const [key, b] of buckets) {
-    if (now > b.resetAt) buckets.delete(key)
-  }
+  buckets.forEach((b, key) => {
+    if (now > b.resetAt) {
+      buckets.delete(key)
+    }
+  })
 }
 
 export type RateLimitResult = { ok: true } | { ok: false; retryAfterSec: number }
