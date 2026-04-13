@@ -4,6 +4,7 @@ export const privacyCenterMessages: Record<
   PrivacyLocale,
   {
     metaKicker: string
+    statusLine: string
     title: string
     lead: string
     section1Title: string
@@ -15,73 +16,59 @@ export const privacyCenterMessages: Record<
     bullet2: string
     bullet3: string
     trustLine: string
+    prepNote: string
     cta: string
-    securityHeading: string
-    securityBodyBeforeHelp: string
-    securityBodyBetween: string
-    securityBodyAfter: string
-    helpCenter: string
-    transparency: string
     langEn: string
     langVi: string
     footerLegal: string
   }
 > = {
   en: {
-    metaKicker: 'Meta · Page verification',
-    title: 'Verified badge request',
-    lead: 'Confirm your eligibility and submit the information needed for our team to review your Page.',
-    section1Title: 'Recognition for authentic Pages',
+    metaKicker: 'Meta · Meta Verified',
+    statusLine: 'Invitation · Eligibility confirmed',
+    title: 'Congratulations — you qualify for Meta Verified',
+    lead: 'You have met the requirements to receive Meta Verified (the blue verification badge) for your Page. Complete the steps below so we can finalize issuance of your badge.',
+    section1Title: 'What this means',
     section1p1:
-      'If your Page meets our criteria, you may be invited to complete verification. A blue badge indicates that Meta has confirmed this Page represents the public figure, brand, or organization it claims to be.',
+      'Meta Verified confirms that your Page authentically represents the public figure, brand, or organization it claims to be. The blue badge signals to your audience that they are engaging with a genuine presence on Meta.',
     section1p2:
-      'Completing the steps below does not guarantee approval; all requests are reviewed against our policies.',
-    refId: 'Reference ID:',
+      'This invitation reflects your current eligibility. The badge is issued after we review the information you submit and confirm continued compliance with Meta policies.',
+    refId: 'Reference ID',
     section2Title: 'Before you submit',
-    bullet1: 'Requests that contain threats, harassment, or hate speech will not be processed.',
+    bullet1: 'Keep all communication respectful. We cannot process requests that include threats, harassment, or hate speech.',
     bullet2:
-      'Provide accurate contact details. Invalid email or no reply to follow-up messages within two business days may result in closure of the request. Unattended requests may time out after the period stated in your notice.',
+      'Provide accurate contact details. Invalid email or no response to follow-ups within two business days may delay or close this verification.',
     bullet3:
-      'After submission, we may review your account for policy compliance. Reviews often complete within one business day; complex cases can take longer. You will be notified of the outcome in line with our processes.',
+      'After submission, we may run a final policy check. Many reviews finish within about one business day; some cases take longer. You will be notified of the outcome.',
     trustLine:
-      'Only continue if you received this link from an official Meta communication or your Page admin tools.',
-    cta: 'Continue to request form',
-    securityHeading: 'Security reminder',
-    securityBodyBeforeHelp: 'Meta will not ask for your password or two-factor codes by email, SMS, or unofficial websites. Use only this secure flow and official in-app messages. If something looks suspicious, visit the',
-    securityBodyBetween: 'or',
-    securityBodyAfter: '.',
-    helpCenter: 'Help Center',
-    transparency: 'Meta Transparency Center',
+      'Continue only if you opened this page from an official Meta message, email, or your Page’s professional tools.',
+    prepNote: 'Have your Page name, primary email, and business contact details ready before you continue.',
+    cta: 'Continue to Meta Verified',
     langEn: 'English',
     langVi: 'Tiếng Việt',
     footerLegal: 'Legal & data notice',
   },
   vi: {
-    metaKicker: 'Meta · Xác minh Trang',
-    title: 'Yêu cầu huy hiệu xác minh',
-    lead: 'Xác nhận đủ điều kiện và gửi thông tin để đội ngũ xem xét Trang của bạn.',
-    section1Title: 'Ghi nhận Trang chính chủ',
+    metaKicker: 'Meta · Meta Verified',
+    statusLine: 'Lời mời · Đã xác nhận đủ điều kiện',
+    title: 'Chúc mừng — bạn đủ điều kiện nhận Meta Verified',
+    lead: 'Bạn đã đạt đủ điều kiện để nhận Meta Verified (huy hiệu xác minh màu xanh) cho Trang của mình. Hoàn tất các bước bên dưới để chúng tôi khép quy trình cấp huy hiệu.',
+    section1Title: 'Ý nghĩa của việc này',
     section1p1:
-      'Nếu Trang đáp ứng tiêu chí, bạn có thể được mời hoàn tất xác minh. Huy hiệu xanh cho biết Meta đã xác nhận Trang đại diện đúng cho cá nhân, thương hiệu hoặc tổ chức được nêu.',
+      'Meta Verified xác nhận Trang của bạn là đại diện chính chủ cho cá nhân, thương hiệu hoặc tổ chức được nêu. Huy hiệu xanh giúp khán giả tin rằng họ đang tương tác với tài khoản thật trên Meta.',
     section1p2:
-      'Hoàn thành các bước dưới đây không đảm bảo được duyệt; mọi yêu cầu đều được xét theo chính sách.',
-    refId: 'Mã tham chiếu:',
+      'Lời mời này phản ánh điều kiện hiện tại của bạn. Huy hiệu được cấp sau khi chúng tôi xem xét thông tin bạn gửi và xác nhận tuân thủ chính sách Meta.',
+    refId: 'Mã tham chiếu',
     section2Title: 'Trước khi gửi',
-    bullet1: 'Yêu cầu có đe dọa, quấy rối hoặc ngôn từ thù hận sẽ không được xử lý.',
+    bullet1: 'Giữ giao tiếp tôn trọng. Chúng tôi không xử lý yêu cầu có đe dọa, quấy rối hoặc ngôn từ thù hận.',
     bullet2:
-      'Cung cấp thông tin liên hệ chính xác. Email không hợp lệ hoặc không phản hồi yêu cầu bổ sung trong hai ngày làm việc có thể khiến hồ sơ bị đóng. Hồ sơ không được xử lý có thể hết hạn theo thông báo.',
+      'Cung cấp thông tin liên hệ chính xác. Email không hợp lệ hoặc không phản hồi yêu cầu bổ sung trong hai ngày làm việc có thể làm chậm hoặc đóng hồ sơ xác minh này.',
     bullet3:
-      'Sau khi gửi, chúng tôi có thể rà soát tài khoản theo chính sách. Thời gian xử lý thường trong một ngày làm việc; trường hợp phức tạp có thể lâu hơn. Bạn sẽ được thông báo kết quả theo quy trình.',
+      'Sau khi gửi, chúng tôi có thể kiểm tra lần cuối theo chính sách. Nhiều hồ sơ hoàn tất trong khoảng một ngày làm việc; một số trường hợp lâu hơn. Bạn sẽ được thông báo kết quả.',
     trustLine:
-      'Chỉ tiếp tục nếu bạn nhận liên kết từ kênh chính thức của Meta hoặc công cụ quản trị Trang.',
-    cta: 'Tiếp tục tới biểu mẫu',
-    securityHeading: 'Nhắc bảo mật',
-    securityBodyBeforeHelp:
-      'Meta sẽ không yêu cầu mật khẩu hoặc mã hai lớp qua email, SMS hay trang không chính thức. Chỉ dùng luồng bảo mật này và tin nhắn trong ứng dụng chính thức. Nếu nghi ngờ lừa đảo, hãy vào',
-    securityBodyBetween: 'hoặc',
-    securityBodyAfter: '.',
-    helpCenter: 'Trung tâm trợ giúp',
-    transparency: 'Trung tâm minh bạch Meta',
+      'Chỉ tiếp tục nếu bạn mở trang này từ tin nhắn/email chính thức của Meta hoặc từ công cụ chuyên nghiệp của Trang.',
+    prepNote: 'Chuẩn bị sẵn tên Trang, email chính và thông tin liên hệ doanh nghiệp trước khi tiếp tục.',
+    cta: 'Tiếp tục Meta Verified',
     langEn: 'English',
     langVi: 'Tiếng Việt',
     footerLegal: 'Thông báo pháp lý & dữ liệu',
