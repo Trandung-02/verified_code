@@ -25,7 +25,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, title, children, onClose, isClosa
                 >
                     <motion.div
                         key="modal-content"
-                        className={`bg-[linear-gradient(130deg,_rgba(249,241,249,1)_0%,_rgba(234,243,253,1)_35%,_rgba(237,251,242,1)_100%)] max-h-[100%] ${heightFull ? 'h-full' : ''} w-full max-w-lg mx-4 md:mx-0 shadow-lg px-[20px] py-[20px] rounded-[16px] flex flex-col overflow-hidden`}
+                        className={`bg-[linear-gradient(130deg,_rgba(249,241,249,1)_0%,_rgba(234,243,253,1)_35%,_rgba(237,251,242,1)_100%)] max-h-[100%] ${heightFull ? 'h-full' : ''} w-full max-w-lg mx-4 md:mx-0 border border-[#e5e9ef]/80 shadow-[0_8px_30px_rgba(0,0,0,0.12)] px-[20px] py-[22px] rounded-[16px] flex flex-col overflow-hidden`}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.8 }}
@@ -34,7 +34,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, title, children, onClose, isClosa
                         {/* Header */}
                         <div className={`flex items-center justify-between ${isClosable && title ? 'mb-[10px]' : 'pb-[0px]'}`}>
                             {title ? (
-                                <h2 className="font-bold text-[#0A1317] text-[15px] flex items-center justify-center text-center">{title}</h2>
+                                <h2 className="font-semibold text-[#0A1317] text-[17px] tracking-tight flex items-center justify-center text-center">{title}</h2>
                             ) : (<div className="w-full"></div>)}
 
                             {isClosable ? (

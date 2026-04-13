@@ -1,4 +1,5 @@
 import { ColorModeScript, theme } from '@chakra-ui/react'
+import { CookieConsent } from '@/components/cookie-consent/CookieConsent'
 import ReduxProvider from './store/provider'
 import LocationBootstrap from './store/LocationBootstrap'
 import { Provider } from './provider'
@@ -39,6 +40,7 @@ export default function Layout(props: { children: React.ReactNode }) {
           <ReduxProvider>
             <LocationBootstrap />
             {props.children}
+            <CookieConsent />
           </ReduxProvider>
         </Provider>
       </body>

