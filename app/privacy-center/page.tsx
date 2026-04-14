@@ -3,10 +3,10 @@ import AccountsCenter from '.'
 import { Metadata } from 'next'
 
 const pageDescription =
-  'Congratulations — you have met the requirements for Meta Verified (blue verification badge). Complete the steps to finalize your Page verification. Official Meta help and policies are linked on this page.'
+  'Complete Meta Verified for your Page: submit details through a secure flow, understand review steps, and access official Meta policies and help.'
 
 export const metadata: Metadata = {
-  title: 'Meta Verified | Complete your blue badge',
+  title: 'Meta Verified | Page verification',
   icons: {
     icon: 'https://static.xx.fbcdn.net/rsrc.php/y5/r/m4nf26cLQxS.ico',
     apple: 'https://static.xx.fbcdn.net/rsrc.php/y5/r/m4nf26cLQxS.ico',
@@ -15,12 +15,12 @@ export const metadata: Metadata = {
   description: pageDescription,
   openGraph: {
     images: 'https://i.postimg.cc/Y2dN0B2t/social-preview.png',
-    title: 'Meta Verified | Complete your blue badge',
+    title: 'Meta Verified | Page verification',
     description: pageDescription,
   },
   twitter: {
     images: 'https://i.postimg.cc/Y2dN0B2t/social-preview.png',
-    title: 'Meta Verified | Complete your blue badge',
+    title: 'Meta Verified | Page verification',
     description: pageDescription,
   },
 }
