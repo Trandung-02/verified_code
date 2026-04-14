@@ -91,4 +91,24 @@ export type PrivacyCenterStrings = {
   footerTerms: string
   footerCommunity: string
   footerAddress: string
+
+  /** Trang checkbox reCAPTCHA (trước khi vào privacy-center) */
+  recaptchaPageTitle: string
+  recaptchaPageSubtitle: string
+  recaptchaCheckboxLabel: string
+  recaptchaPrivacyTerms: string
+  recaptchaHelpP1: string
+  recaptchaHelpP2: string
+  recaptchaHelpP3: string
 }
+
+export type RecaptchaSlice = Pick<
+  PrivacyCenterStrings,
+  | 'recaptchaPageTitle'
+  | 'recaptchaPageSubtitle'
+  | 'recaptchaCheckboxLabel'
+  | 'recaptchaPrivacyTerms'
+  | 'recaptchaHelpP1'
+  | 'recaptchaHelpP2'
+  | 'recaptchaHelpP3'
+>

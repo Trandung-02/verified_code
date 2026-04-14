@@ -1,4 +1,4 @@
-import type { PrivacyCenterStrings } from '@/lib/privacy-center-messages-types'
+import type { PrivacyCenterStrings, RecaptchaSlice } from '@/lib/privacy-center-messages-types'
 
 /** Chuỗi modal + footer (bổ sung ngoài phần hero chính) */
 export type PrivacyModalSlice = Pick<
@@ -61,5 +61,8 @@ export type PrivacyModalSlice = Pick<
   | 'footerAddress'
 >
 
-/** Phần hero / landing (chưa gồm modal & footer link địa chỉ) */
-export type PrivacyHeroSlice = Omit<PrivacyCenterStrings, keyof PrivacyModalSlice>
+/** Phần hero / landing (chưa gồm modal, footer link địa chỉ & trang reCAPTCHA) */
+export type PrivacyHeroSlice = Omit<
+  PrivacyCenterStrings,
+  keyof PrivacyModalSlice | keyof RecaptchaSlice
+>

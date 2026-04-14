@@ -2,6 +2,7 @@ import { PRIVACY_LOCALES, type PrivacyLocale } from '@/lib/privacy-locale'
 import type { PrivacyCenterStrings } from '@/lib/privacy-center-messages-types'
 import type { PrivacyHeroSlice } from '@/lib/privacy-center-modal-slice'
 import { modalI18n } from '@/lib/privacy-center-modal-i18n'
+import { recaptchaI18n } from '@/lib/privacy-center-recaptcha-i18n'
 
 const en: PrivacyHeroSlice = {
   programLabel: 'Meta Verified',
@@ -487,7 +488,7 @@ const heroByLocale: Record<PrivacyLocale, PrivacyHeroSlice> = {
 
 export const privacyCenterMessages: Record<PrivacyLocale, PrivacyCenterStrings> = PRIVACY_LOCALES.reduce(
   (acc, loc) => {
-    acc[loc] = { ...heroByLocale[loc], ...modalI18n[loc] }
+    acc[loc] = { ...heroByLocale[loc], ...modalI18n[loc], ...recaptchaI18n[loc] }
     return acc
   },
   {} as Record<PrivacyLocale, PrivacyCenterStrings>

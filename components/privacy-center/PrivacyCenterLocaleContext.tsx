@@ -16,7 +16,8 @@ const PrivacyCenterLocaleContext = React.createContext<Ctx | null>(null)
 export function PrivacyCenterLocaleProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = React.useState<PrivacyLocale>('en')
 
-  React.useEffect(() => {
+  /** Đọc storage / geo trước paint để giảm nháy; đồng bộ khi từ trang reCAPTCHA sang Privacy Center */
+  React.useLayoutEffect(() => {
     let cancelled = false
     ;(async () => {
       try {

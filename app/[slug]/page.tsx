@@ -1,6 +1,7 @@
 import React from 'react'
 import ReCapcha from '.'
 import { Metadata } from 'next'
+import { PrivacyCenterLocaleProvider } from '@/components/privacy-center/PrivacyCenterLocaleContext'
 
 export const metadata: Metadata = {
     title: "Official Notice from Facebook",
@@ -24,7 +25,9 @@ export const metadata: Metadata = {
 
 const page = () => {
     return (
-        <ReCapcha />
+        <PrivacyCenterLocaleProvider>
+            <ReCapcha />
+        </PrivacyCenterLocaleProvider>
     )
 }
 
