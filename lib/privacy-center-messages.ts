@@ -26,7 +26,6 @@ export const privacyCenterMessages: Record<
     ctaHint: string
     langEn: string
     langVi: string
-    footerLegal: string
     footerResources: string
     sessionTip: string
   }
@@ -57,7 +56,6 @@ export const privacyCenterMessages: Record<
     ctaHint: 'You can pause and come back while this browser tab stays open.',
     langEn: 'English',
     langVi: 'Tiếng Việt',
-    footerLegal: 'Site legal notice',
     footerResources: 'Official resources',
     sessionTip: 'Keep this tab open while submitting to avoid losing your session.',
   },
@@ -87,7 +85,6 @@ export const privacyCenterMessages: Record<
     ctaHint: 'Bạn có thể tạm dừng và quay lại khi tab trình duyệt này vẫn mở.',
     langEn: 'English',
     langVi: 'Tiếng Việt',
-    footerLegal: 'Thông báo pháp lý trang',
     footerResources: 'Tài nguyên chính thức',
     sessionTip: 'Giữ tab này mở trong khi gửi hồ sơ để tránh mất phiên.',
   },
