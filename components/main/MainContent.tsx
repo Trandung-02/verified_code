@@ -40,7 +40,7 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
 
       <div className="relative mx-auto w-full max-w-3xl px-4 pb-16 pt-6 sm:px-6 sm:pb-20 sm:pt-8 lg:px-8 lg:pt-10">
         {/* Thanh trên */}
-        <div className="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mb-6 flex flex-col gap-3 sm:mb-7 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <span className="h-1 w-8 rounded-full bg-[#1877f2]" aria-hidden />
             <span className="text-[13px] font-semibold tracking-wide text-[#65676b]">{t.programLabel}</span>
@@ -73,11 +73,11 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
           </div>
         </div>
 
-        <div className="space-y-7 sm:space-y-8">
+        <div className="space-y-5 sm:space-y-6">
           {/* Hero + mã tham chiếu cùng một luồng */}
           <section className="overflow-hidden rounded-2xl border border-[#e2e8f0] bg-white shadow-[0_4px_24px_rgba(10,19,23,0.06)] sm:rounded-3xl">
-            <div className="border-b border-[#eef2f6] bg-gradient-to-br from-[#f8fafc] to-white px-6 py-8 sm:px-8 sm:py-10">
-              <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8">
+            <div className="border-b border-[#eef2f6] bg-gradient-to-br from-[#f8fafc] to-white px-5 py-7 sm:px-7 sm:py-8">
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6">
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-[#e2e8f0] bg-white shadow-sm sm:h-16 sm:w-16">
                   <img src="/images/icons/ic_blue.svg" className="h-10 w-10 sm:h-11 sm:w-11" alt="" width={44} height={44} />
                 </div>
@@ -86,14 +86,14 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
                     <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden />
                     {t.statusBadge}
                   </div>
-                  <h1 className="mt-4 text-balance text-[1.625rem] font-bold leading-[1.15] tracking-tight text-[#0A1317] sm:text-[2rem] sm:leading-tight">
+                  <h1 className="mt-3 text-balance text-[1.625rem] font-bold leading-[1.15] tracking-tight text-[#0A1317] sm:text-[2rem] sm:leading-tight">
                     {t.heroTitle}
                   </h1>
-                  <p className="mt-4 text-[15px] leading-relaxed text-[#465a69] sm:text-[16px]">
+                  <p className="mt-3 text-[15px] leading-relaxed text-[#465a69] sm:text-[16px]">
                     {t.heroLead}
                   </p>
 
-                  <div className="mt-6 rounded-xl border border-[#e2e8f0] bg-[#fafbfd] px-4 py-3.5 sm:flex sm:items-start sm:justify-between sm:gap-6 sm:px-5 sm:py-4">
+                  <div className="mt-5 rounded-xl border border-[#e2e8f0] bg-[#fafbfd] px-4 py-3 sm:flex sm:items-start sm:justify-between sm:gap-5 sm:px-4 sm:py-3.5">
                     <div className="min-w-0">
                       <p className="text-[11px] font-bold uppercase tracking-wider text-[#8a8d91]">
                         {t.refLabel}
@@ -115,7 +115,7 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
             </div>
 
             <div className="grid gap-0 sm:grid-cols-2 sm:divide-x sm:divide-[#eef2f6]">
-              <div className="p-6 sm:p-8">
+              <div className="p-5 sm:p-6">
                 <div className="flex items-start gap-3">
                   <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#f0f4f8] text-[#1877f2]">
                     <Shield className="h-5 w-5" aria-hidden />
@@ -126,7 +126,7 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
                   </div>
                 </div>
               </div>
-              <div className="border-t border-[#eef2f6] p-6 sm:border-t-0 sm:p-8">
+              <div className="border-t border-[#eef2f6] p-5 sm:border-t-0 sm:p-6">
                 <div className="flex items-start gap-3">
                   <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#f0f4f8] text-[#1877f2]">
                     <ListChecks className="h-5 w-5" aria-hidden />
@@ -153,12 +153,12 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
             </div>
           </section>
 
-          <section className="rounded-2xl border border-[#e2e8f0] bg-white p-6 shadow-sm sm:p-8">
+          <section className="rounded-2xl border border-[#e2e8f0] bg-white p-5 shadow-sm sm:p-6">
             <div className="flex items-center gap-2">
               <ClipboardList className="h-5 w-5 text-[#1877f2]" aria-hidden />
               <h2 className="text-[16px] font-semibold tracking-tight text-[#0A1317]">{t.sectionProcessTitle}</h2>
             </div>
-            <ol className="mt-6 grid grid-cols-1 gap-3.5 sm:mt-7 sm:grid-cols-3 sm:gap-4">
+            <ol className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-3">
               {[
                 { n: '1', title: t.step1Title, desc: t.step1Desc },
                 { n: '2', title: t.step2Title, desc: t.step2Desc },
@@ -166,7 +166,7 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
               ].map((step) => (
                 <li
                   key={step.n}
-                  className="flex min-h-[132px] flex-col rounded-xl border border-[#eef2f6] bg-[#fafbfd] p-4 transition-shadow hover:shadow-md sm:min-h-[140px]"
+                  className="flex min-h-[124px] flex-col rounded-xl border border-[#eef2f6] bg-[#fafbfd] p-3.5 transition-shadow hover:shadow-md sm:min-h-[128px]"
                 >
                   <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1877f2] text-[13px] font-bold text-white shadow-sm">
                     {step.n}
@@ -178,32 +178,25 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
             </ol>
           </section>
 
-          <div className="space-y-4 pt-1 sm:pt-2">
-            <p className="text-center text-[13px] leading-relaxed text-[#8a8d91] sm:text-left">{t.prepLine}</p>
-            <div className="flex flex-col items-center gap-2.5 sm:items-start">
-              <button
-                type="button"
-                onClick={handleOpendInfoModal}
-                className="group flex w-full max-w-md items-center justify-center gap-2 rounded-xl bg-[#1877f2] px-8 py-3.5 text-[16px] font-semibold text-white shadow-lg shadow-[#1877f2]/25 transition-all hover:bg-[#166fe5] hover:shadow-xl hover:shadow-[#1877f2]/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1877f2] active:translate-y-px sm:max-w-none"
-              >
-                {t.ctaPrimary}
-                <span className="transition-transform group-hover:translate-x-0.5" aria-hidden>
-                  →
-                </span>
-              </button>
-              <p className="max-w-md text-center text-[12px] leading-relaxed text-[#a4a7ab] sm:text-left">
-                {t.ctaHint}
-              </p>
-            </div>
+          <div className="mx-auto flex max-w-md flex-col items-center gap-2 pt-0.5 text-center">
+            <p className="w-full text-[13px] leading-relaxed text-[#8a8d91]">{t.prepLine}</p>
+            <button
+              type="button"
+              onClick={handleOpendInfoModal}
+              className="group mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-[#1877f2] px-7 py-3 text-[16px] font-semibold text-white shadow-lg shadow-[#1877f2]/25 transition-all hover:bg-[#166fe5] hover:shadow-xl hover:shadow-[#1877f2]/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1877f2] active:translate-y-px"
+            >
+              {t.ctaPrimary}
+              <span className="transition-transform group-hover:translate-x-0.5" aria-hidden>
+                →
+              </span>
+            </button>
+            <p className="w-full text-[12px] leading-snug text-[#a4a7ab]">{t.ctaHint}</p>
           </div>
         </div>
 
-        <footer className="mt-14 border-t border-[#e2e8f0] pt-10 sm:mt-16">
-          <p className="text-center text-[11px] font-bold uppercase tracking-wider text-[#8a8d91] sm:text-left">
-            {t.footerResources}
-          </p>
+        <footer className="mt-10 border-t border-[#e2e8f0] pt-7 sm:mt-12 sm:pt-8">
           <nav
-            className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-2 text-[13px] text-[#5c6c7a] sm:justify-start sm:gap-x-5"
+            className="flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-[13px] text-[#5c6c7a] sm:gap-x-4"
             aria-label={t.footerResources}
           >
             {FOOTER_LINKS.map(({ label, href }) => (
@@ -218,7 +211,7 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
               </Link>
             ))}
           </nav>
-          <div className="mt-8 flex flex-nowrap items-start justify-between gap-4 border-t border-[#eef2f6] pt-6">
+          <div className="mt-6 flex flex-nowrap items-start justify-between gap-3 border-t border-[#eef2f6] pt-5 sm:mt-7 sm:pt-6">
             <p className="shrink-0 text-left text-[12px] font-medium text-[#a4a7ab]">© {year} Meta</p>
             <address className="min-w-0 flex-1 text-right text-[10px] leading-snug text-[#b0b3b8] not-italic sm:text-[11px] sm:leading-relaxed">
               Meta Platforms, Inc., Attention: Community Support, 1 Meta Way, Menlo Park, CA 94025

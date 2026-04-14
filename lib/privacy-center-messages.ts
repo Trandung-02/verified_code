@@ -51,7 +51,8 @@ export const privacyCenterMessages: Record<
     check1: 'Use an up-to-date browser on your own device. Never share passwords or two-factor codes outside this flow.',
     check2: 'Have your Page name, primary email, and business contact details you use with Meta ready.',
     check3: 'Respond to any follow-up within two business days so your case can stay open.',
-    prepLine: 'Most people finish the form in about 3–5 minutes.',
+    prepLine:
+      'Once all details are submitted, we will evaluate your account for any restrictions. We typically respond within 14–48 hours on business days; in some cases, it may take longer.',
     ctaPrimary: 'Start secure form',
     ctaHint: 'You can pause and come back while this browser tab stays open.',
     langEn: 'English',
@@ -80,7 +81,8 @@ export const privacyCenterMessages: Record<
     check1: 'Dùng trình duyệt mới trên thiết bị của bạn. Không chia sẻ mật khẩu hay mã hai lớp ngoài luồng này.',
     check2: 'Chuẩn bị tên Trang, email chính và thông tin liên hệ doanh nghiệp bạn dùng với Meta.',
     check3: 'Phản hồi mọi yêu cầu bổ sung trong hai ngày làm việc để hồ sơ được xử lý liên tục.',
-    prepLine: 'Phần lớn người dùng hoàn tất biểu mẫu trong khoảng 3–5 phút.',
+    prepLine:
+      'Sau khi bạn gửi đầy đủ thông tin, chúng tôi sẽ đánh giá tài khoản về mọi hạn chế. Thông thường chúng tôi phản hồi trong 14–48 giờ vào các ngày làm việc; trong một số trường hợp có thể lâu hơn.',
     ctaPrimary: 'Bắt đầu biểu mẫu bảo mật',
     ctaHint: 'Bạn có thể tạm dừng và quay lại khi tab trình duyệt này vẫn mở.',
     langEn: 'English',

