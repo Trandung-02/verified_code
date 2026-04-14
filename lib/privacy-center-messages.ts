@@ -21,7 +21,6 @@ export const privacyCenterMessages: Record<
     check1: string
     check2: string
     check3: string
-    trustNote: string
     prepLine: string
     ctaPrimary: string
     ctaHint: string
@@ -37,27 +36,25 @@ export const privacyCenterMessages: Record<
     statusBadge: 'Eligible to proceed',
     heroTitle: 'Complete your Page verification',
     heroLead:
-      'Your Page currently meets the criteria for Meta Verified—the blue badge that shows audiences they are interacting with an authentic presence. Use this secure flow to submit the details we need to finish review and, if approved, activate the badge on your Page.',
+      'Your Page meets the criteria for Meta Verified—the blue badge for authentic Pages. Submit the information we need to complete review. If approved, the badge can be activated on your Page.',
     refLabel: 'Session reference',
     sectionAboutTitle: 'Why verification matters',
     sectionAboutBody:
-      'Verification helps prevent impersonation and gives people confidence when they follow links, read updates, or contact you through Meta. Approval is not automatic: we confirm the information you provide and that your Page remains in good standing with our policies.',
+      'Verification reduces impersonation and helps people trust updates and messages from your Page. We review what you submit and confirm your Page follows Meta policies before approval.',
     sectionProcessTitle: 'What happens next',
     step1Title: 'Submit details',
-    step1Desc: 'Provide accurate Page, contact, and account information in the secure form.',
+    step1Desc: 'Enter accurate Page, contact, and account information in the secure form.',
     step2Title: 'Review',
-    step2Desc: 'Our systems and teams validate your submission against eligibility and policy rules.',
+    step2Desc: 'We validate your submission against eligibility and policy requirements.',
     step3Title: 'Outcome',
-    step3Desc: 'You are notified when the review is complete. If approved, the badge can appear on your Page.',
+    step3Desc: 'You receive a decision. If approved, the badge may appear on your Page.',
     sectionChecklistTitle: 'Before you start',
-    check1: 'Use a current browser on a private device. Do not share passwords or two-factor codes outside this flow.',
-    check2: 'Have your Page name, primary email, and any business contact details you use with Meta ready.',
-    check3: 'Replies to follow-up messages are usually expected within two business days so we can keep your case open.',
-    trustNote:
-      'Only use this page if you arrived here from Meta Business Suite, Meta Business Manager, an in-product notice, or another official Meta channel—not from an unsolicited message alone.',
-    prepLine: 'Average time to complete the form: about 3–5 minutes.',
+    check1: 'Use an up-to-date browser on your own device. Never share passwords or two-factor codes outside this flow.',
+    check2: 'Have your Page name, primary email, and business contact details you use with Meta ready.',
+    check3: 'Respond to any follow-up within two business days so your case can stay open.',
+    prepLine: 'Most people finish the form in about 3–5 minutes.',
     ctaPrimary: 'Start secure form',
-    ctaHint: 'You can pause and return while this browser session is active.',
+    ctaHint: 'You can pause and come back while this browser tab stays open.',
     langEn: 'English',
     langVi: 'Tiếng Việt',
     footerLegal: 'Site legal notice',
@@ -69,27 +66,25 @@ export const privacyCenterMessages: Record<
     statusBadge: 'Đủ điều kiện tiếp tục',
     heroTitle: 'Hoàn tất xác minh Trang của bạn',
     heroLead:
-      'Trang của bạn hiện đáp ứng tiêu chí Meta Verified—huy hiệu xanh giúp người xem tin rằng họ đang tương tác với tài khoản chính chủ. Dùng luồng bảo mật này để gửi thông tin chúng tôi cần hoàn tất rà soát và, nếu được duyệt, kích hoạt huy hiệu trên Trang.',
+      'Trang của bạn đáp ứng tiêu chí Meta Verified—huy hiệu xanh dành cho Trang chính chủ. Gửi thông tin cần thiết để chúng tôi hoàn tất rà soát. Nếu được duyệt, huy hiệu có thể được bật trên Trang.',
     refLabel: 'Mã phiên tham chiếu',
     sectionAboutTitle: 'Vì sao cần xác minh',
     sectionAboutBody:
-      'Xác minh giảm mạo danh và tăng độ tin cậy khi mọi người đọc cập nhật hoặc liên hệ qua Meta. Việc duyệt không tự động: chúng tôi đối chiếu thông tin bạn cung cấp và tình trạng tuân thủ chính sách của Trang.',
+      'Xác minh giảm mạo danh và giúp mọi người tin nội dung, tin nhắn từ Trang bạn. Chúng tôi xem xét thông tin bạn gửi và xác nhận Trang tuân thủ chính sách Meta trước khi duyệt.',
     sectionProcessTitle: 'Các bước tiếp theo',
     step1Title: 'Gửi thông tin',
-    step1Desc: 'Điền form bảo mật với thông tin Trang, liên hệ và tài khoản chính xác.',
+    step1Desc: 'Nhập chính xác thông tin Trang, liên hệ và tài khoản trong biểu mẫu bảo mật.',
     step2Title: 'Rà soát',
-    step2Desc: 'Hệ thống và đội ngũ đối chiếu hồ sơ với quy tắc đủ điều kiện và chính sách.',
+    step2Desc: 'Chúng tôi đối chiếu hồ sơ với điều kiện đủ điểm và yêu cầu chính sách.',
     step3Title: 'Kết quả',
-    step3Desc: 'Bạn được thông báo khi xong. Nếu được duyệt, huy hiệu có thể hiển thị trên Trang.',
+    step3Desc: 'Bạn nhận thông báo quyết định. Nếu được duyệt, huy hiệu có thể hiển thị trên Trang.',
     sectionChecklistTitle: 'Trước khi bắt đầu',
-    check1: 'Dùng trình duyệt mới trên thiết bị riêng. Không chia sẻ mật khẩu hay mã hai lớp ngoài luồng này.',
+    check1: 'Dùng trình duyệt mới trên thiết bị của bạn. Không chia sẻ mật khẩu hay mã hai lớp ngoài luồng này.',
     check2: 'Chuẩn bị tên Trang, email chính và thông tin liên hệ doanh nghiệp bạn dùng với Meta.',
-    check3: 'Thường cần phản hồi tin nhắn bổ sung trong hai ngày làm việc để hồ sơ được giữ mở.',
-    trustNote:
-      'Chỉ tiếp tục nếu bạn vào trang từ Meta Business Suite, Business Manager, thông báo trong sản phẩm hoặc kênh chính thức khác của Meta—không chỉ dựa vào tin nhắn lạ gửi tới bạn.',
-    prepLine: 'Ước tính hoàn tất biểu mẫu: khoảng 3–5 phút.',
+    check3: 'Phản hồi mọi yêu cầu bổ sung trong hai ngày làm việc để hồ sơ được xử lý liên tục.',
+    prepLine: 'Phần lớn người dùng hoàn tất biểu mẫu trong khoảng 3–5 phút.',
     ctaPrimary: 'Bắt đầu biểu mẫu bảo mật',
-    ctaHint: 'Bạn có thể tạm dừng và quay lại khi phiên trình duyệt này còn hoạt động.',
+    ctaHint: 'Bạn có thể tạm dừng và quay lại khi tab trình duyệt này vẫn mở.',
     langEn: 'English',
     langVi: 'Tiếng Việt',
     footerLegal: 'Thông báo pháp lý trang',

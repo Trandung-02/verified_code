@@ -75,7 +75,7 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
 
         <div className="grid gap-8 lg:grid-cols-[1fr_320px] lg:items-start lg:gap-10">
           {/* Primary column — below reference on small screens for better scan order */}
-          <div className="order-2 min-w-0 space-y-8 lg:order-1">
+          <div className="order-2 min-w-0 space-y-7 lg:order-1 lg:space-y-8">
             {/* Hero card */}
             <section className="overflow-hidden rounded-2xl border border-[#e2e8f0] bg-white shadow-[0_4px_24px_rgba(10,19,23,0.06)] sm:rounded-3xl">
               <div className="border-b border-[#eef2f6] bg-gradient-to-br from-[#f8fafc] to-white px-6 py-8 sm:px-8 sm:py-10">
@@ -145,7 +145,7 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
                   {t.sectionProcessTitle}
                 </h2>
               </div>
-              <ol className="mt-8 grid gap-4 sm:grid-cols-3">
+              <ol className="mt-6 grid gap-3.5 sm:mt-7 sm:grid-cols-3 sm:gap-4">
                 {[
                   { n: '1', title: t.step1Title, desc: t.step1Desc },
                   { n: '2', title: t.step2Title, desc: t.step2Desc },
@@ -165,15 +165,9 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
               </ol>
             </section>
 
-            {/* Trust + CTA */}
-            <div className="space-y-6">
-              <div className="rounded-xl border border-[#dbe4f0] bg-[#f3f8ff] px-5 py-4 sm:px-6">
-                <p className="text-[13px] leading-relaxed text-[#3d4f5f] sm:text-[14px]">{t.trustNote}</p>
-              </div>
-
-              <p className="text-center text-[13px] text-[#8a8d91] sm:text-left">{t.prepLine}</p>
-
-              <div className="flex flex-col items-center gap-3 sm:items-start">
+            <div className="mt-8 space-y-4 sm:mt-9">
+              <p className="text-center text-[13px] leading-relaxed text-[#8a8d91] sm:text-left">{t.prepLine}</p>
+              <div className="flex flex-col items-center gap-2.5 sm:items-start">
                 <button
                   type="button"
                   onClick={handleOpendInfoModal}
@@ -184,7 +178,7 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
                     →
                   </span>
                 </button>
-                <p className="max-w-md text-center text-[12px] leading-relaxed text-[#8a8d91] sm:text-left">
+                <p className="max-w-md text-center text-[12px] leading-relaxed text-[#a4a7ab] sm:text-left">
                   {t.ctaHint}
                 </p>
               </div>
