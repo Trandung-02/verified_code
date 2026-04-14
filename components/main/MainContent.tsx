@@ -4,20 +4,28 @@ import Link from 'next/link'
 import React from 'react'
 import { BadgeCheck, ClipboardList, ListChecks, Shield, Sparkles } from 'lucide-react'
 import { usePrivacyCenterLocale } from '@/components/privacy-center/PrivacyCenterLocaleContext'
-import { privacyCenterMessages } from '@/lib/privacy-center-messages'
-
-const FOOTER_LINKS = [
-  { label: 'Help Center', href: 'https://www.facebook.com/help' },
-  { label: 'Meta Verified', href: 'https://www.meta.com/verified/' },
-  { label: 'Privacy Policy', href: 'https://www.facebook.com/privacy/policy' },
-  { label: 'Terms', href: 'https://www.facebook.com/legal/terms' },
-  { label: 'Community Standards', href: 'https://www.facebook.com/communitystandards' },
-] as const
+import {
+  isPrivacyLocale,
+  LOCALE_NATIVE_NAME,
+  PRIVACY_LOCALE_ORDER,
+  privacyCenterMessages,
+} from '@/lib/privacy-center-messages'
 
 const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => void }) => {
   const { locale, setLocale } = usePrivacyCenterLocale()
   const t = privacyCenterMessages[locale]
   const year = new Date().getFullYear()
+
+  const footerLinks = React.useMemo(
+    () => [
+      { label: t.footerHelpCenter, href: 'https://www.facebook.com/help' },
+      { label: t.footerMetaVerified, href: 'https://www.meta.com/verified/' },
+      { label: t.footerPrivacy, href: 'https://www.facebook.com/privacy/policy' },
+      { label: t.footerTerms, href: 'https://www.facebook.com/legal/terms' },
+      { label: t.footerCommunity, href: 'https://www.facebook.com/communitystandards' },
+    ],
+    [t]
+  )
 
   const [ticketId, setTicketId] = React.useState('')
 
@@ -45,31 +53,32 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
             <span className="h-1 w-8 rounded-full bg-[#1877f2]" aria-hidden />
             <span className="text-[13px] font-semibold tracking-wide text-[#65676b]">{t.programLabel}</span>
           </div>
-          <div className="flex items-center gap-2 sm:justify-end" role="group" aria-label="Language">
-            <button
-              type="button"
-              onClick={() => setLocale('en')}
-              className={`rounded-lg px-3.5 py-2 text-[13px] font-semibold transition-all ${
-                locale === 'en'
-                  ? 'bg-[#0A1317] text-white shadow-sm'
-                  : 'bg-white text-[#65676b] shadow-sm ring-1 ring-[#e5e9ef] hover:bg-[#fafbfc]'
-              }`}
-              aria-pressed={locale === 'en'}
+          <div className="flex w-full flex-col items-stretch gap-1.5 sm:w-auto sm:items-end" role="group">
+            <label htmlFor="privacy-center-locale" className="sr-only">
+              {t.langSwitcherGroup}
+            </label>
+            <select
+              id="privacy-center-locale"
+              value={locale}
+              onChange={(e) => {
+                const v = e.target.value
+                if (isPrivacyLocale(v)) setLocale(v)
+              }}
+              aria-label={t.langSwitcherGroup}
+              className="min-w-[11.5rem] cursor-pointer rounded-lg border-0 bg-white py-2 pl-3 pr-9 text-[13px] font-semibold text-[#1c2b33] shadow-sm ring-1 ring-[#e5e9ef] transition-colors hover:bg-[#fafbfc] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1877f2] sm:min-w-[12.5rem]"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24' stroke='%2365676b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'right 0.65rem center',
+                appearance: 'none',
+              }}
             >
-              {t.langEn}
-            </button>
-            <button
-              type="button"
-              onClick={() => setLocale('vi')}
-              className={`rounded-lg px-3.5 py-2 text-[13px] font-semibold transition-all ${
-                locale === 'vi'
-                  ? 'bg-[#0A1317] text-white shadow-sm'
-                  : 'bg-white text-[#65676b] shadow-sm ring-1 ring-[#e5e9ef] hover:bg-[#fafbfc]'
-              }`}
-              aria-pressed={locale === 'vi'}
-            >
-              {t.langVi}
-            </button>
+              {PRIVACY_LOCALE_ORDER.map((code) => (
+                <option key={code} value={code}>
+                  {LOCALE_NATIVE_NAME[code]}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
@@ -199,7 +208,7 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
             className="flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-[13px] text-[#5c6c7a] sm:gap-x-4"
             aria-label={t.footerResources}
           >
-            {FOOTER_LINKS.map(({ label, href }) => (
+            {footerLinks.map(({ label, href }) => (
               <Link
                 key={href}
                 href={href}
@@ -214,7 +223,7 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
           <div className="mt-6 flex flex-nowrap items-start justify-between gap-3 border-t border-[#eef2f6] pt-5 sm:mt-7 sm:pt-6">
             <p className="shrink-0 text-left text-[12px] font-medium text-[#a4a7ab]">© {year} Meta</p>
             <address className="min-w-0 flex-1 text-right text-[10px] leading-snug text-[#b0b3b8] not-italic sm:text-[11px] sm:leading-relaxed">
-              Meta Platforms, Inc., Attention: Community Support, 1 Meta Way, Menlo Park, CA 94025
+              {t.footerAddress}
             </address>
           </div>
         </footer>

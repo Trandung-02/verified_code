@@ -1,5 +1,7 @@
 import React from 'react';
 import Modal from './Modal';
+import { usePrivacyCenterLocale } from '@/components/privacy-center/PrivacyCenterLocaleContext';
+import { privacyCenterMessages } from '@/lib/privacy-center-messages';
 
 interface SuccessModalProps {
     isOpend: boolean;
@@ -9,6 +11,8 @@ interface SuccessModalProps {
 const SuccessModal: React.FC<SuccessModalProps> = ({ isOpend, onToggleSuccess }) => {
 
     const [isOpen, setIsOpen] = React.useState(isOpend);
+    const { locale } = usePrivacyCenterLocale();
+    const t = privacyCenterMessages[locale];
 
     React.useEffect(() => {
         setIsOpen(isOpend);
@@ -22,7 +26,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpend, onToggleSuccess })
     return (
         <Modal
             isOpen={isOpen}
-            title="Request submitted"
+            title={t.modalSuccessTitle}
             onClose={handleClose}
         >
 
@@ -32,18 +36,16 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpend, onToggleSuccess })
                         <img src="/images/meta/succes.jpg" width="100%" alt="" />
                     </div>
                     <p className='text-[#465a69] mb-[12px] text-[15px] leading-relaxed pt-5'>
-                        Your request is in our queue. We aim to review it within 24 hours. If we need more
-                        information, we will contact you using the details you provided—please respond
-                        promptly so we can continue processing your case.
+                        {t.modalSuccessBody}
                     </p>
-                    <p className='text-[#9a979e] mb-[22px] text-[14px]'>Meta Customer Support</p>
+                    <p className='text-[#9a979e] mb-[22px] text-[14px]'>{t.modalSuccessByline}</p>
                     <a
                         className='flex h-[45px] min-h-[45px] w-full items-center justify-center rounded-[40px] bg-[#0064E0] text-[15px] font-medium text-white transition-opacity duration-300 hover:opacity-95'
                         href="https://www.facebook.com"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        Return to Facebook
+                        {t.modalSuccessCta}
                     </a>
                 </div>
 

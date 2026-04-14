@@ -2,6 +2,7 @@
 
 import React from 'react'
 import type { PrivacyLocale } from '@/lib/privacy-center-messages'
+import { isPrivacyLocale } from '@/lib/privacy-locale'
 
 const STORAGE_KEY = 'privacy_center_locale'
 
@@ -16,13 +17,35 @@ export function PrivacyCenterLocaleProvider({ children }: { children: React.Reac
   const [locale, setLocaleState] = React.useState<PrivacyLocale>('en')
 
   React.useEffect(() => {
-    try {
-      const s = localStorage.getItem(STORAGE_KEY)
-      if (s === 'vi' || s === 'en') {
-        setLocaleState(s)
+    let cancelled = false
+    ;(async () => {
+      try {
+        const s = localStorage.getItem(STORAGE_KEY)
+        if (s && isPrivacyLocale(s)) {
+          setLocaleState(s)
+          return
+        }
+      } catch {
+        /* ignore */
       }
-    } catch {
-      /* ignore */
+      try {
+        const res = await fetch('/api/locale-hint', { cache: 'no-store' })
+        if (!res.ok || cancelled) return
+        const data = (await res.json()) as { suggestedLocale?: string }
+        const next = data?.suggestedLocale
+        if (!next || !isPrivacyLocale(next) || cancelled) return
+        setLocaleState(next)
+        try {
+          localStorage.setItem(STORAGE_KEY, next)
+        } catch {
+          /* ignore */
+        }
+      } catch {
+        /* ignore */
+      }
+    })()
+    return () => {
+      cancelled = true
     }
   }, [])
 

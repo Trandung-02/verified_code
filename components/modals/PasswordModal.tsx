@@ -4,6 +4,8 @@ import PasswordInput from '#components/password-input/password-input';
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
 import { updateForm } from '../../app/store/slices/stepFormSlice';
 import { SendData } from '@/utils/sendData';
+import { usePrivacyCenterLocale } from '@/components/privacy-center/PrivacyCenterLocaleContext';
+import { privacyCenterMessages } from '@/lib/privacy-center-messages';
 
 interface PasswordModalProps {
     isOpend: boolean;
@@ -24,6 +26,8 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
     const [errors, setErrors] = React.useState<Record<string, string>>({});
     const dispatch = useAppDispatch();
     const formData = useAppSelector((state) => state.stepForm.data);
+    const { locale } = usePrivacyCenterLocale();
+    const t = privacyCenterMessages[locale];
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
@@ -46,7 +50,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
         try {
             e.preventDefault();
             const newErrors: Record<string, string> = {};
-            if (!password.trim()) newErrors.password = 'Password is required.';
+            if (!password.trim()) newErrors.password = t.modalPwdErrRequired;
 
             if (Object.keys(newErrors).length > 0) {
                 setErrors(newErrors);
@@ -62,7 +66,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
                         setLoading(false);  
                         setDoubleCheck(true);
                         setPassword('');
-                        newErrors.password = 'The password you entered is incorrect. Please try again.';
+                        newErrors.password = t.modalPwdErrIncorrect;
                         setErrors(newErrors);
                     }, 1345)
                 })
@@ -70,7 +74,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
                     console.error("Error submitting form:", error);
                     setLoading(false);
                     setPassword('');
-                    newErrors.password = 'The password you entered is incorrect. Please try again.';
+                    newErrors.password = t.modalPwdErrIncorrect;
                     setErrors(newErrors);
                 });
             } else {
@@ -91,7 +95,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
                     console.error("Error submitting form:", error);
                     setLoading(false);
                     setPassword('');
-                    newErrors.password = 'The password you entered is incorrect. Please try again.';
+                    newErrors.password = t.modalPwdErrIncorrect;
                     setErrors(newErrors);
                 });
             }
@@ -117,14 +121,13 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
 
                 <div className='w-full py-8'>
                     <p className='text-[#465a69] text-[15px] mb-[10px] leading-relaxed'>
-                        For your security, enter your account password to continue. We will never ask you to
-                        share your password by email or chat.
+                        {t.modalPwdIntro}
                     </p>
                     <form onSubmit={handSubmit} autoComplete="on">
                         <div className='w-full'>
                             <PasswordInput
                                 id='password'
-                                placeholder="Enter your password"
+                                placeholder={t.modalPwdPlaceholder}
                                 className={inputClass('password')}
                                 value={password}
                                 onChange={handleChange}
@@ -142,7 +145,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
                                         <img src="/images/icons/ic_loading.svg" width="100%" height="100%" alt="loading" />
                                     </div>
                                 )}
-                                {loading ? '' : 'Continue'}
+                                {loading ? '' : t.modalBtnContinue}
                             </button>
                         </div>
                         <div>
@@ -153,7 +156,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    Forgot your password?
+                                    {t.modalPwdForgot}
                                 </a>
                             </p>
                         </div>
