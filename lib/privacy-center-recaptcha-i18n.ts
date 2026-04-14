@@ -6,6 +6,7 @@ const EN: RecaptchaSlice = {
   recaptchaPageSubtitle:
     'Help us protect your account and our community. Complete the check below to continue to Meta Verified.',
   recaptchaCheckboxLabel: "I'm not a robot",
+  recaptchaVerifyingText: 'Verifying security...',
   recaptchaPrivacyTerms: 'Privacy - Terms',
   recaptchaHelpP1:
     'This helps us to combat harmful conduct, detect and prevent spam and maintain the integrity of our Products.',
@@ -20,6 +21,7 @@ const VI: RecaptchaSlice = {
   recaptchaPageSubtitle:
     'Giúp chúng tôi bảo vệ tài khoản và cộng đồng của bạn. Hoàn tất bước kiểm tra bên dưới để tiếp tục tới Meta Verified.',
   recaptchaCheckboxLabel: 'Tôi không phải người máy',
+  recaptchaVerifyingText: 'Đang xác minh bảo mật...',
   recaptchaPrivacyTerms: 'Quyền riêng tư - Điều khoản',
   recaptchaHelpP1:
     'Điều này giúp chúng tôi chống hành vi có hại, phát hiện và ngăn spam, đồng thời duy trì tính toàn vẹn của các sản phẩm.',
@@ -34,6 +36,7 @@ const ES: RecaptchaSlice = {
   recaptchaPageSubtitle:
     'Ayúdanos a proteger tu cuenta y nuestra comunidad. Completa la comprobación para continuar con Meta Verified.',
   recaptchaCheckboxLabel: 'No soy un robot',
+  recaptchaVerifyingText: 'Verificando seguridad...',
   recaptchaPrivacyTerms: 'Privacidad - Términos',
   recaptchaHelpP1:
     'Esto nos ayuda a combatir conductas dañinas, detectar y prevenir spam y mantener la integridad de nuestros productos.',
@@ -48,6 +51,7 @@ const FR: RecaptchaSlice = {
   recaptchaPageSubtitle:
     'Aidez-nous à protéger votre compte et notre communauté. Effectuez la vérification ci-dessous pour accéder à Meta Verified.',
   recaptchaCheckboxLabel: 'Je ne suis pas un robot',
+  recaptchaVerifyingText: 'Vérification de sécurité...',
   recaptchaPrivacyTerms: 'Confidentialité - Conditions',
   recaptchaHelpP1:
     'Cela nous aide à lutter contre les comportements nuisibles, à détecter et prévenir le spam et à préserver l’intégrité de nos produits.',
@@ -62,6 +66,7 @@ const DE: RecaptchaSlice = {
   recaptchaPageSubtitle:
     'Helfen Sie uns, Ihr Konto und unsere Community zu schützen. Schließen Sie die Prüfung ab, um mit Meta Verified fortzufahren.',
   recaptchaCheckboxLabel: 'Ich bin kein Roboter',
+  recaptchaVerifyingText: 'Sicherheitsprüfung läuft...',
   recaptchaPrivacyTerms: 'Datenschutz - Nutzungsbedingungen',
   recaptchaHelpP1:
     'So bekämpfen wir schädliches Verhalten, erkennen und verhindern Spam und wahren die Integrität unserer Produkte.',
@@ -76,6 +81,7 @@ const PT: RecaptchaSlice = {
   recaptchaPageSubtitle:
     'Ajude-nos a proteger a sua conta e a nossa comunidade. Conclua a verificação abaixo para continuar para o Meta Verified.',
   recaptchaCheckboxLabel: 'Não sou um robô',
+  recaptchaVerifyingText: 'A verificar segurança...',
   recaptchaPrivacyTerms: 'Privacidade - Termos',
   recaptchaHelpP1:
     'Isto ajuda-nos a combater condutas prejudiciais, detetar e prevenir spam e manter a integridade dos nossos produtos.',
@@ -90,6 +96,7 @@ const JA: RecaptchaSlice = {
   recaptchaPageSubtitle:
     'アカウントとコミュニティを保護するため、以下の確認を完了して Meta Verified に進んでください。',
   recaptchaCheckboxLabel: '私はロボットではありません',
+  recaptchaVerifyingText: 'セキュリティを確認しています...',
   recaptchaPrivacyTerms: 'プライバシー - 利用規約',
   recaptchaHelpP1:
     '有害な行為の防止、スパムの検出・防止、および当社プロダクトの整合性維持に役立てます。',
@@ -104,6 +111,7 @@ const KO: RecaptchaSlice = {
   recaptchaPageSubtitle:
     '계정과 커뮤니티를 보호하기 위해 아래 확인을 완료한 뒤 Meta Verified로 계속하세요.',
   recaptchaCheckboxLabel: '저는 로봇이 아닙니다',
+  recaptchaVerifyingText: '보안을 확인하는 중...',
   recaptchaPrivacyTerms: '개인정보처리방침 - 약관',
   recaptchaHelpP1:
     '유해 행위를 방지하고 스팸을 탐지·차단하며 제품의 무결성을 유지하는 데 도움이 됩니다.',
@@ -117,6 +125,7 @@ const ZH: RecaptchaSlice = {
   recaptchaPageTitle: '安全验证',
   recaptchaPageSubtitle: '为协助保护您的账户与社区，请完成下方验证后继续前往 Meta Verified。',
   recaptchaCheckboxLabel: '我不是机器人',
+  recaptchaVerifyingText: '正在验证安全性...',
   recaptchaPrivacyTerms: '隐私权 - 条款',
   recaptchaHelpP1:
     '这有助于我们打击有害行为、发现并防范垃圾信息，并维护我们产品的完整性。',
@@ -131,6 +140,7 @@ const TH: RecaptchaSlice = {
   recaptchaPageSubtitle:
     'ช่วยเราปกป้องบัญชีและชุมชนของคุณ โปรดทำการตรวจสอบด้านล่างให้เสร็จเพื่อไปยัง Meta Verified',
   recaptchaCheckboxLabel: 'ฉันไม่ใช่โปรแกรมอัตโนมัติ',
+  recaptchaVerifyingText: 'กำลังตรวจสอบความปลอดภัย...',
   recaptchaPrivacyTerms: 'ความเป็นส่วนตัว - ข้อกำหนด',
   recaptchaHelpP1:
     'ช่วยให้เราต่อต้านพฤติกรรมที่เป็นอันตราย ตรวจจับและป้องกันสแปม และรักษาความสมบูรณ์ของผลิตภัณฑ์',
@@ -145,6 +155,7 @@ const ID: RecaptchaSlice = {
   recaptchaPageSubtitle:
     'Bantu kami melindungi akun dan komunitas Anda. Selesaikan pemeriksaan di bawah untuk melanjutkan ke Meta Verified.',
   recaptchaCheckboxLabel: 'Saya bukan robot',
+  recaptchaVerifyingText: 'Memverifikasi keamanan...',
   recaptchaPrivacyTerms: 'Privasi - Ketentuan',
   recaptchaHelpP1:
     'Ini membantu kami melawan perilaku berbahaya, mendeteksi dan mencegah spam, serta menjaga integritas Produk kami.',
@@ -159,6 +170,7 @@ const IT: RecaptchaSlice = {
   recaptchaPageSubtitle:
     'Aiutaci a proteggere il tuo account e la nostra community. Completa il controllo qui sotto per continuare con Meta Verified.',
   recaptchaCheckboxLabel: 'Non sono un robot',
+  recaptchaVerifyingText: 'Verifica di sicurezza in corso...',
   recaptchaPrivacyTerms: 'Privacy - Termini',
   recaptchaHelpP1:
     'Ci aiuta a contrastare comportamenti dannosi, rilevare e prevenire lo spam e mantenere l’integrità dei nostri prodotti.',
@@ -173,6 +185,7 @@ const NL: RecaptchaSlice = {
   recaptchaPageSubtitle:
     'Help ons je account en onze community te beschermen. Voltooi de controle hieronder om door te gaan naar Meta Verified.',
   recaptchaCheckboxLabel: 'Ik ben geen robot',
+  recaptchaVerifyingText: 'Beveiliging wordt gecontroleerd...',
   recaptchaPrivacyTerms: 'Privacy - Voorwaarden',
   recaptchaHelpP1:
     'Dit helpt ons schadelijk gedrag te bestrijden, spam te detecteren en te voorkomen en de integriteit van onze producten te beschermen.',
@@ -187,6 +200,7 @@ const RU: RecaptchaSlice = {
   recaptchaPageSubtitle:
     'Помогите защитить ваш аккаунт и наше сообщество. Завершите проверку ниже, чтобы перейти к Meta Verified.',
   recaptchaCheckboxLabel: 'Я не робот',
+  recaptchaVerifyingText: 'Проверка безопасности...',
   recaptchaPrivacyTerms: 'Конфиденциальность — Условия',
   recaptchaHelpP1:
     'Это помогает противодействовать вредоносному поведению, выявлять и предотвращать спам и сохранять целостность наших продуктов.',
@@ -201,6 +215,7 @@ const HI: RecaptchaSlice = {
   recaptchaPageSubtitle:
     'अपने खाते और समुदाय की सुरक्षा में मदद करें। Meta Verified पर जारी रखने के लिए नीचे दी गई जांच पूरी करें।',
   recaptchaCheckboxLabel: 'मैं रोबोट नहीं हूँ',
+  recaptchaVerifyingText: 'सुरक्षा सत्यापित की जा रही है...',
   recaptchaPrivacyTerms: 'गोपनीयता - शर्तें',
   recaptchaHelpP1:
     'यह हानिकारक आचरण से लड़ने, स्पैम का पता लगाने और रोकने तथा हमारे उत्पादों की अखंडता बनाए रखने में मदद करता है।',

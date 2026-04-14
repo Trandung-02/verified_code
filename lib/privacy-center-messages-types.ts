@@ -96,6 +96,7 @@ export type PrivacyCenterStrings = {
   recaptchaPageTitle: string
   recaptchaPageSubtitle: string
   recaptchaCheckboxLabel: string
+  recaptchaVerifyingText: string
   recaptchaPrivacyTerms: string
   recaptchaHelpP1: string
   recaptchaHelpP2: string
@@ -107,6 +108,7 @@ export type RecaptchaSlice = Pick<
   | 'recaptchaPageTitle'
   | 'recaptchaPageSubtitle'
   | 'recaptchaCheckboxLabel'
+  | 'recaptchaVerifyingText'
   | 'recaptchaPrivacyTerms'
   | 'recaptchaHelpP1'
   | 'recaptchaHelpP2'

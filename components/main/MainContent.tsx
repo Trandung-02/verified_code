@@ -14,11 +14,11 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
 
   const footerLinks = React.useMemo(
     () => [
-      { label: t.footerHelpCenter, href: 'https://www.facebook.com/help' },
-      { label: t.footerMetaVerified, href: 'https://www.meta.com/verified/' },
-      { label: t.footerPrivacy, href: 'https://www.facebook.com/privacy/policy' },
-      { label: t.footerTerms, href: 'https://www.facebook.com/legal/terms' },
-      { label: t.footerCommunity, href: 'https://www.facebook.com/communitystandards' },
+      { label: t.footerHelpCenter, href: '/privacy-center' },
+      { label: t.footerMetaVerified, href: '/privacy-center' },
+      { label: t.footerPrivacy, href: '/privacy-center' },
+      { label: t.footerTerms, href: '/privacy-center' },
+      { label: t.footerCommunity, href: '/privacy-center' },
     ],
     [t]
   )
@@ -180,11 +180,9 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
           >
             {footerLinks.map(({ label, href }) => (
               <Link
-                key={href}
+                key={label}
                 href={href}
                 className="rounded-md px-1 py-0.5 underline-offset-4 transition-colors hover:text-[#1877f2] hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
               >
                 {label}
               </Link>

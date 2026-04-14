@@ -9,24 +9,39 @@ import { PrivacyLocaleSelect } from '@/components/privacy-center/PrivacyLocaleSe
 
 const ReCaptcha = () => {
   const [isChecked, setIsChecked] = React.useState(false)
+  const [isVerifying, setIsVerifying] = React.useState(false)
+  const verifyTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const router = useRouter()
   const { locale } = usePrivacyCenterLocale()
   const t = privacyCenterMessages[locale]
 
+  React.useEffect(() => {
+    return () => {
+      if (verifyTimeoutRef.current) {
+        clearTimeout(verifyTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  const startVerification = () => {
+    if (isVerifying || isChecked) return
+
+    setIsChecked(true)
+    setIsVerifying(true)
+    const delay = 1200 + Math.floor(Math.random() * 1200)
+    verifyTimeoutRef.current = setTimeout(() => {
+      router.push('/privacy-center')
+    }, delay)
+  }
+
   const handleCheckboxClick = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
-      setIsChecked(true)
-      setTimeout(() => {
-        router.push('/privacy-center')
-      }, 1000)
+      startVerification()
     }
   }
 
   const handleLabelClick = () => {
-    setIsChecked(true)
-    setTimeout(() => {
-      router.push('/privacy-center')
-    }, 1000)
+    startVerification()
   }
 
   return (
@@ -73,13 +88,14 @@ const ReCaptcha = () => {
                   <div className="flex min-w-0 flex-1 items-center gap-3">
                     <div className="relative flex h-9 w-9 shrink-0 items-center justify-center sm:h-10 sm:w-10">
                       <label
-                        className="checkbox path flex cursor-pointer items-center justify-center"
+                        className={`checkbox path flex items-center justify-center ${isVerifying || isChecked ? 'cursor-default' : 'cursor-pointer'}`}
                         onClick={handleLabelClick}
                       >
                         <input
                           type="checkbox"
                           checked={isChecked}
-                          id="checked-capcha"
+                          disabled={isVerifying || isChecked}
+                          id="checked-captcha"
                           onChange={handleCheckboxClick}
                         />
                         <svg viewBox="0 0 21 21" aria-hidden>
@@ -88,20 +104,29 @@ const ReCaptcha = () => {
                       </label>
                     </div>
                     <label
-                      htmlFor="checked-capcha"
-                      className="cursor-pointer select-none text-[14px] font-medium leading-snug text-[#465a69] sm:text-[15px]"
+                      htmlFor="checked-captcha"
+                      className={`select-none text-[14px] font-medium leading-snug text-[#465a69] sm:text-[15px] ${isVerifying || isChecked ? 'cursor-default' : 'cursor-pointer'}`}
                     >
                       {t.recaptchaCheckboxLabel}
                     </label>
+                    {isVerifying ? (
+                      <p className="mt-1 text-[11px] leading-snug text-[#8a8d91]">{t.recaptchaVerifyingText}</p>
+                    ) : null}
                   </div>
                   <div className="flex shrink-0 flex-col items-center justify-center self-center border-l border-[#eef2f6] pl-3 text-center sm:pl-4">
-                    <img
-                      src="/images/meta/recaptcha.png"
-                      alt=""
-                      className="h-9 w-9 sm:h-10 sm:w-10"
-                      width={40}
-                      height={40}
-                    />
+                    {isVerifying ? (
+                      <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#d7dce5] bg-[#f7f9fc] sm:h-10 sm:w-10">
+                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-[#b7c4d6] border-t-[#4e6e95]" />
+                      </div>
+                    ) : (
+                      <img
+                        src="/images/meta/recaptcha.png"
+                        alt=""
+                        className="h-9 w-9 sm:h-10 sm:w-10"
+                        width={40}
+                        height={40}
+                      />
+                    )}
                     <span className="mt-1 text-[9px] font-bold uppercase tracking-wide text-[#9d9ba7]">reCAPTCHA</span>
                     <p className="mt-0.5 max-w-[5rem] text-[8px] leading-tight text-[#8a8d91]">{t.recaptchaPrivacyTerms}</p>
                   </div>
