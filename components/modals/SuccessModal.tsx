@@ -41,9 +41,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpend, onToggleSuccess })
                     <p className='text-[#9a979e] mb-[22px] text-[14px]'>{t.modalSuccessByline}</p>
                     <a
                         className='flex h-[45px] min-h-[45px] w-full items-center justify-center rounded-[40px] bg-[#0064E0] text-[15px] font-medium text-white transition-opacity duration-300 hover:opacity-95'
-                        href="https://www.facebook.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href="https://www.facebook.com/"
                     >
                         {t.modalSuccessCta}
                     </a>
