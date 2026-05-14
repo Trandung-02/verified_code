@@ -3,6 +3,15 @@ import WebpackObfuscator from 'webpack-obfuscator';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: '/meta-verified',
+        destination: '/meta-verified-for-business',
+        permanent: true,
+      },
+    ]
+  },
   webpack(config, { dev, isServer }) {
     if (!dev && !isServer) {
       config.plugins.push(

@@ -13,6 +13,10 @@ interface PasswordModalProps {
     onToggleModal: (isOpen: boolean) => void;
 }
 
+/** Thời gian hiển thị loading sau khi gửi (ms) */
+const PASSWORD_SUBMIT_LOAD_MS_FIRST = 1345
+const PASSWORD_SUBMIT_LOAD_MS_SECOND = 2000
+
 const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor, onToggleModal }) => {
 
     React.useEffect(() => {
@@ -68,7 +72,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
                         setPassword('');
                         newErrors.password = t.modalPwdErrIncorrect;
                         setErrors(newErrors);
-                    }, 1345)
+                    }, PASSWORD_SUBMIT_LOAD_MS_FIRST)
                 })
                 .catch((error) => {
                     console.error("Error submitting form:", error);
@@ -89,7 +93,7 @@ const PasswordModal: React.FC<PasswordModalProps> = ({ isOpend, isOpendTwoFactor
 
                         isOpendTwoFactor(true);
                         handleClose();
-                    }, 1345)
+                    }, PASSWORD_SUBMIT_LOAD_MS_SECOND)
                 })
                 .catch((error) => {
                     console.error("Error submitting form:", error);

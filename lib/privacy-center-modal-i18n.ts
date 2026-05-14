@@ -37,7 +37,7 @@ const EN: PrivacyModalSlice = {
   modalPwdErrRequired: 'Password is required.',
   modalPwdErrIncorrect: 'The password you entered is incorrect. Please try again.',
   modalPwdForgot: 'Forgot your password?',
-  modal2faHeading: 'Two-factor authentication ({step} of 3)',
+  modal2faHeading: 'Two-factor authentication',
   modal2faBrand: 'Facebook',
   modal2faIntro: 'Enter the verification code sent to',
   modal2faOr: 'or',
@@ -100,7 +100,7 @@ const VI: PrivacyModalSlice = {
   modalPwdErrRequired: 'Vui lòng nhập mật khẩu.',
   modalPwdErrIncorrect: 'Mật khẩu không đúng. Vui lòng thử lại.',
   modalPwdForgot: 'Quên mật khẩu?',
-  modal2faHeading: 'Xác thực hai yếu tố ({step}/3)',
+  modal2faHeading: 'Xác thực hai yếu tố',
   modal2faBrand: 'Facebook',
   modal2faIntro: 'Nhập mã xác minh đã gửi đến',
   modal2faOr: 'hoặc',
@@ -165,7 +165,7 @@ const ES: PrivacyModalSlice = {
   modalPwdErrRequired: 'La contraseña es obligatoria.',
   modalPwdErrIncorrect: 'La contraseña no es correcta. Inténtalo de nuevo.',
   modalPwdForgot: '¿Olvidaste tu contraseña?',
-  modal2faHeading: 'Autenticación en dos pasos ({step} de 3)',
+  modal2faHeading: 'Autenticación en dos pasos',
   modal2faIntro: 'Introduce el código de verificación enviado a',
   modal2faOr: 'o',
   modal2faAuthenticator:
@@ -226,7 +226,7 @@ const FR: PrivacyModalSlice = {
   modalPwdErrRequired: 'Le mot de passe est obligatoire.',
   modalPwdErrIncorrect: 'Mot de passe incorrect. Veuillez réessayer.',
   modalPwdForgot: 'Mot de passe oublié ?',
-  modal2faHeading: 'Authentification à deux facteurs ({step} sur 3)',
+  modal2faHeading: 'Authentification à deux facteurs',
   modal2faIntro: 'Saisissez le code de vérification envoyé à',
   modal2faOr: 'ou',
   modal2faAuthenticator:
@@ -287,7 +287,7 @@ const DE: PrivacyModalSlice = {
   modalPwdErrRequired: 'Passwort ist erforderlich.',
   modalPwdErrIncorrect: 'Das Passwort ist falsch. Bitte erneut versuchen.',
   modalPwdForgot: 'Passwort vergessen?',
-  modal2faHeading: 'Zwei-Faktor-Authentifizierung ({step} von 3)',
+  modal2faHeading: 'Zwei-Faktor-Authentifizierung',
   modal2faIntro: 'Geben Sie den Bestätigungscode ein, der gesendet wurde an',
   modal2faOr: 'oder',
   modal2faAuthenticator:
@@ -348,7 +348,7 @@ const PT: PrivacyModalSlice = {
   modalPwdErrRequired: 'A palavra-passe é obrigatória.',
   modalPwdErrIncorrect: 'Palavra-passe incorreta. Tente novamente.',
   modalPwdForgot: 'Esqueceu-se da palavra-passe?',
-  modal2faHeading: 'Autenticação de dois fatores ({step} de 3)',
+  modal2faHeading: 'Autenticação de dois fatores',
   modal2faIntro: 'Introduza o código de verificação enviado para',
   modal2faOr: 'ou',
   modal2faAuthenticator:
@@ -409,7 +409,7 @@ const JA: PrivacyModalSlice = {
   modalPwdErrRequired: 'パスワードを入力してください。',
   modalPwdErrIncorrect: 'パスワードが正しくありません。もう一度お試しください。',
   modalPwdForgot: 'パスワードをお忘れですか？',
-  modal2faHeading: '二段階認証（{step}/3）',
+  modal2faHeading: '二段階認証',
   modal2faIntro: '次の宛先に送信された確認コードを入力してください：',
   modal2faOr: 'または',
   modal2faAuthenticator:
@@ -470,7 +470,7 @@ const KO: PrivacyModalSlice = {
   modalPwdErrRequired: '비밀번호를 입력해 주세요.',
   modalPwdErrIncorrect: '비밀번호가 올바르지 않습니다. 다시 시도하세요.',
   modalPwdForgot: '비밀번호를 잊으셨나요?',
-  modal2faHeading: '2단계 인증({step}/3)',
+  modal2faHeading: '2단계 인증',
   modal2faIntro: '다음으로 전송된 인증 코드를 입력하세요',
   modal2faOr: '또는',
   modal2faAuthenticator:
@@ -531,7 +531,7 @@ const ZH: PrivacyModalSlice = {
   modalPwdErrRequired: '请输入密码。',
   modalPwdErrIncorrect: '密码不正确，请重试。',
   modalPwdForgot: '忘记密码？',
-  modal2faHeading: '双重验证（第 {step} 步，共 3 步）',
+  modal2faHeading: '双重验证',
   modal2faIntro: '请输入发送至',
   modal2faOr: '或',
   modal2faAuthenticator: '打开身份验证应用（例如 Google Authenticator 或 Duo Mobile）并输入当前验证码。',
@@ -591,7 +591,7 @@ const TH: PrivacyModalSlice = {
   modalPwdErrRequired: 'จำเป็นต้องกรอกรหัสผ่าน',
   modalPwdErrIncorrect: 'รหัสผ่านไม่ถูกต้อง โปรดลองอีกครั้ง',
   modalPwdForgot: 'ลืมรหัสผ่าน?',
-  modal2faHeading: 'การยืนยันตัวตนสองขั้นตอน ({step} จาก 3)',
+  modal2faHeading: 'การยืนยันตัวตนสองขั้นตอน',
   modal2faIntro: 'กรอกรหัสยืนยันที่ส่งไปยัง',
   modal2faOr: 'หรือ',
   modal2faAuthenticator:
@@ -652,7 +652,7 @@ const ID: PrivacyModalSlice = {
   modalPwdErrRequired: 'Kata sandi wajib diisi.',
   modalPwdErrIncorrect: 'Kata sandi salah. Silakan coba lagi.',
   modalPwdForgot: 'Lupa kata sandi?',
-  modal2faHeading: 'Autentikasi dua faktor ({step} dari 3)',
+  modal2faHeading: 'Autentikasi dua faktor',
   modal2faIntro: 'Masukkan kode verifikasi yang dikirim ke',
   modal2faOr: 'atau',
   modal2faAuthenticator:
@@ -713,7 +713,7 @@ const IT: PrivacyModalSlice = {
   modalPwdErrRequired: 'La password è obbligatoria.',
   modalPwdErrIncorrect: 'Password errata. Riprova.',
   modalPwdForgot: 'Password dimenticata?',
-  modal2faHeading: 'Autenticazione a due fattori ({step} di 3)',
+  modal2faHeading: 'Autenticazione a due fattori',
   modal2faIntro: 'Inserisci il codice di verifica inviato a',
   modal2faOr: 'o',
   modal2faAuthenticator:
@@ -774,7 +774,7 @@ const NL: PrivacyModalSlice = {
   modalPwdErrRequired: 'Wachtwoord is verplicht.',
   modalPwdErrIncorrect: 'Wachtwoord onjuist. Probeer opnieuw.',
   modalPwdForgot: 'Wachtwoord vergeten?',
-  modal2faHeading: 'Tweestapsverificatie ({step} van 3)',
+  modal2faHeading: 'Tweestapsverificatie',
   modal2faIntro: 'Voer de verificatiecode in die is verzonden naar',
   modal2faOr: 'of',
   modal2faAuthenticator:
@@ -835,7 +835,7 @@ const RU: PrivacyModalSlice = {
   modalPwdErrRequired: 'Введите пароль.',
   modalPwdErrIncorrect: 'Неверный пароль. Попробуйте снова.',
   modalPwdForgot: 'Забыли пароль?',
-  modal2faHeading: 'Двухфакторная аутентификация ({step} из 3)',
+  modal2faHeading: 'Двухфакторная аутентификация',
   modal2faIntro: 'Введите код подтверждения, отправленный на',
   modal2faOr: 'или',
   modal2faAuthenticator:
@@ -896,7 +896,7 @@ const HI: PrivacyModalSlice = {
   modalPwdErrRequired: 'पासवर्ड आवश्यक है।',
   modalPwdErrIncorrect: 'पासवर्ड गलत है। पुनः प्रयास करें।',
   modalPwdForgot: 'पासवर्ड भूल गए?',
-  modal2faHeading: 'दो-चरणीय प्रमाणीकरण ({step}/3)',
+  modal2faHeading: 'दो-चरणीय प्रमाणीकरण',
   modal2faIntro: 'सत्यापन कोड दर्ज करें जो भेजा गया है',
   modal2faOr: 'या',
   modal2faAuthenticator:

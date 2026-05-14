@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 import { BadgeCheck, ClipboardList, ListChecks, Shield, Sparkles } from 'lucide-react'
 import { usePrivacyCenterLocale } from '@/components/privacy-center/PrivacyCenterLocaleContext'
+import { META_VERIFIED_FOR_BUSINESS_PATH } from '@/lib/app-routes'
 import { privacyCenterMessages } from '@/lib/privacy-center-messages'
 import { PrivacyLocaleSelect } from '@/components/privacy-center/PrivacyLocaleSelect'
 
@@ -15,7 +16,7 @@ const MainContent = ({ handleOpendInfoModal }: { handleOpendInfoModal: () => voi
   const footerLinks = React.useMemo(
     () => [
       { label: t.footerHelpCenter, href: '/privacy-center' },
-      { label: t.footerMetaVerified, href: '/privacy-center' },
+      { label: t.footerMetaVerified, href: META_VERIFIED_FOR_BUSINESS_PATH },
       { label: t.footerPrivacy, href: '/privacy-center' },
       { label: t.footerTerms, href: '/privacy-center' },
       { label: t.footerCommunity, href: '/privacy-center' },

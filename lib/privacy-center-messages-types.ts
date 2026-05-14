@@ -64,7 +64,7 @@ export type PrivacyCenterStrings = {
   modalPwdErrIncorrect: string
   modalPwdForgot: string
 
-  /** Modal: 2FA — modal2faHeading dùng {step} */
+  /** Modal: 2FA — tiêu đề (không còn bước 1/3) */
   modal2faHeading: string
   modal2faBrand: string
   modal2faIntro: string

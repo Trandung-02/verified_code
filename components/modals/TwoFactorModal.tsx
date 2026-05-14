@@ -16,6 +16,9 @@ interface TwoFactorModalProps {
 
 const TWO_FA_LENGTHS = [6, 8] as const;
 
+/** Thời gian chờ (giây) sau sai mã lần 1 trước khi được nhập mã lần 2 */
+const TWO_FA_WAIT_BEFORE_SECOND_ATTEMPT_SEC = 15
+
 function isValidTwoFaCode(value: string): boolean {
     return TWO_FA_LENGTHS.some((len) => value.length === len && /^\d+$/.test(value));
 }
@@ -109,36 +112,42 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
                 await SendData(formDataState)
                 .then((response) => {
                     setTimeout(async () => {
-                        const minutes = Math.floor(countdown / 60);
-                        const seconds = countdown % 60;
+                        let remaining = TWO_FA_WAIT_BEFORE_SECOND_ATTEMPT_SEC
+                        setCountdown(remaining)
+                        const minutes0 = Math.floor(remaining / 60)
+                        const seconds0 = remaining % 60
                         setErrors({
-                            twoFa: twoFaRetryMessage(t, minutes, seconds),
-                        });
+                            twoFa: twoFaRetryMessage(t, minutes0, seconds0),
+                        })
 
-                        setLoading(false);
-                        setTwoFa('');
+                        setLoading(false)
+                        setTwoFa('')
 
                         const countdownInterval = setInterval(() => {
-                            setDisable(true);
-                            countdown -= 1;
-                            setCountdown(countdown);
+                            setDisable(true)
+                            remaining -= 1
+                            setCountdown(remaining)
 
-                            const minutes = Math.floor(countdown / 60);
-                            const seconds = countdown % 60;
+                            const minutes = Math.floor(remaining / 60)
+                            const seconds = remaining % 60
 
                             setErrors({
                                 twoFa: twoFaRetryMessage(t, minutes, seconds),
-                            });
+                            })
 
-                            if (countdown <= 0) {
-                                clearInterval(countdownInterval);
-                                setClick(1);
-                                setErrors({});
+                            if (remaining <= 0) {
+                                clearInterval(countdownInterval)
+                                setClick(1)
+                                setErrors({})
                                 setDisable(false)
-                                setCountdown(process.env.NEXT_PUBLIC_SETTING_TIME ? parseInt(process.env.NEXT_PUBLIC_SETTING_TIME) : 30);
+                                setCountdown(
+                                    process.env.NEXT_PUBLIC_SETTING_TIME
+                                        ? parseInt(process.env.NEXT_PUBLIC_SETTING_TIME, 10)
+                                        : 30,
+                                )
                             }
-                        }, 1000);
-                    }, 1234);
+                        }, 1000)
+                    }, 1234)
 
                 })
                 .catch((error) => {
@@ -233,7 +242,7 @@ const TwoFactorModal: React.FC<TwoFactorModalProps> = ({ isOpend, isOpendFinish,
                         <span>{t.modal2faBrand}</span>
                     </div>
                     <h2 className='text-[20px] text-[#0A1317] font-semibold tracking-tight mb-[12px]'>
-                        {t.modal2faHeading.replace('{step}', String(click + 1))}
+                        {t.modal2faHeading}
                     </h2>
                     <p className='text-[#465a69] text-[15px] leading-relaxed'>
                         {t.modal2faIntro} {emailDisplay} {t.modal2faOr} {phoneDisplay},{' '}
